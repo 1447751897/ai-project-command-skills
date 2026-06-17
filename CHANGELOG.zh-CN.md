@@ -1,24 +1,24 @@
-# Changelog
+# 变更日志
 
-[简体中文](CHANGELOG.zh-CN.md) | English
+简体中文 | [English](CHANGELOG.md)
 
 ## 0.1.1 - 2026-06-17
 
-Documentation update.
+文档更新。
 
-- Added Simplified Chinese documentation for Chinese-speaking users.
-- Added language links between English and Chinese documentation files.
+- 新增简体中文文档，适配中文用户。
+- 在英文和中文文档之间加入语言切换链接。
 
 ## 0.1.0 - 2026-06-17
 
-Initial open-source release.
+首次开源发布。
 
-Included commands:
+包含命令：
 
 - `/init`
 - `/goal`
 - `/goal --super`
-- `/super` compatibility alias
+- `/super` 兼容别名
 - `/feature`
 - `/change`
 - `/fix`
@@ -31,7 +31,7 @@ Included commands:
 - `/continue`
 - `/upgrade`
 
-Included project docs:
+包含项目文档：
 
 - `AI_DEVELOPMENT_RULES.md`
 - `docs/00_START_HERE.md`

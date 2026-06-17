@@ -1,5 +1,7 @@
 # AI Project Command Skills
 
+[简体中文](README.zh-CN.md) | English
+
 Document-first Codex skills for project kickoff, feature work, goal-mode execution, handoff, and cross-chat continuation.
 
 This package installs a set of slash-style workflow skills such as `/init`, `/goal`, `/feature`, `/status`, and `/continue`. The skills help an AI coding assistant clarify requirements, maintain project docs, make technical decisions deliberately, and keep enough project state on disk for future chats or developers to continue.
@@ -132,10 +134,14 @@ skills/                 Skill folders installed into ~/.agents/skills
 install.ps1             Windows installer
 install.sh              macOS/Linux installer
 README.md               Project documentation
+README.zh-CN.md         Simplified Chinese documentation
 LICENSE                 MIT license
 CHANGELOG.md            Release notes
+CHANGELOG.zh-CN.md      Simplified Chinese release notes
 CONTRIBUTING.md         Contribution guide
+CONTRIBUTING.zh-CN.md   Simplified Chinese contribution guide
 SECURITY.md             Security policy
+SECURITY.zh-CN.md       Simplified Chinese security policy
 ```
 
 Each command is packaged as a standalone skill folder so Codex can expose it in the command menu. This intentionally duplicates the bundled project template across command aliases for easy installation and offline use.
@@ -165,4 +171,3 @@ Inside a project that was already initialized, run:
 ```
 
 This adds missing new docs and rules without overwriting project-specific content.
-

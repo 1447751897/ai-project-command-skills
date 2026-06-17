@@ -1,5 +1,7 @@
 # Security Policy
 
+[简体中文](SECURITY.zh-CN.md) | English
+
 ## Reporting
 
 If you find a security issue in the skill templates or installer scripts, open a GitHub issue with a clear description and reproduction steps.
@@ -16,4 +18,3 @@ Important safety boundaries in the bundled workflow:
 - Do not commit real tokens.
 - Do not perform destructive Git operations unless explicitly requested.
 - `/goal --super` still stops for paid services, production data deletion, secrets, destructive Git operations, and clear security/compliance risks.
-

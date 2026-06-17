@@ -1,5 +1,7 @@
 # Contributing
 
+[简体中文](CONTRIBUTING.zh-CN.md) | English
+
 Thanks for improving AI Project Command Skills.
 
 ## Development Notes
@@ -39,4 +41,3 @@ Please include:
 - What command or document behavior changed.
 - Which bundled templates were updated.
 - How you validated the change.
-
