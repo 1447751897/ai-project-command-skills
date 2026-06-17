@@ -1,0 +1,4 @@
+interface:
+  display_name: "Continue"
+  short_description: "Resume project from current status docs"
+  default_prompt: "Use $continue with /continue to resume development from docs/10-current-status.md."

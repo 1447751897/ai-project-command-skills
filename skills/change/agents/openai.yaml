@@ -1,0 +1,4 @@
+interface:
+  display_name: "Change"
+  short_description: "Assess and document requirement changes"
+  default_prompt: "Use $change with /change to assess and implement a controlled requirement change."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plan"
+  short_description: "Recommend next features and priorities"
+  default_prompt: "Use $plan with /plan to recommend next features, improvements, and priorities before implementation."
