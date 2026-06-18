@@ -6,6 +6,8 @@
 
 适配 Claude Code。
 
+- 新增自动检测安装器：`install-all.ps1` 和 `install-all.sh`。
+- 自动安装器可以从本地仓库或 GitHub 最新包安装/更新检测到的 Codex 和 Claude Code 技能包。
 - 新增 `claude-skills/`，提供 Claude Code 专用别名 skills。
 - 新增 Claude Code 安装脚本：`install-claude.ps1` 和 `install-claude.sh`。
 - 为 Claude Code 新增 `/ai-*` 命令别名，避免和 `/init`、`/plan`、`/upgrade` 等内置命令冲突。

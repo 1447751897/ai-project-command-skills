@@ -6,6 +6,8 @@
 
 Claude Code compatibility.
 
+- Added auto-detecting installers: `install-all.ps1` and `install-all.sh`.
+- Auto installers can install/update detected Codex and Claude Code packages from either the local repo or the latest GitHub package.
 - Added Claude Code alias skills under `claude-skills/`.
 - Added Claude Code installers: `install-claude.ps1` and `install-claude.sh`.
 - Added `/ai-*` command aliases for Claude Code to avoid conflicts with built-in commands such as `/init`, `/plan`, and `/upgrade`.

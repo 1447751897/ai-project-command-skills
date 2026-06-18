@@ -16,6 +16,7 @@
 - 如果修改 Codex 可安装命令名称，请同时更新 `install.ps1` 和 `install.sh`。
 - 如果新增或重命名 workflow skill，请保持 `skills/` 和 `claude-skills/` 同步。Claude Code 别名应保留 `ai-` 前缀。
 - 如果修改 Claude Code 命令名称，请同时更新 `install-claude.ps1` 和 `install-claude.sh`。
+- 如果修改安装目标或 skill 清单，也要同步更新 `install-all.ps1` 和 `install-all.sh`。
 - 保留 `/super` 作为 `/goal --super` 的兼容别名。
 - 如果修改面向用户的顶层英文文档，请同步维护对应的 `*.zh-CN.md` 中文文档。
 
@@ -27,6 +28,18 @@
 2. 重启 Codex desktop。
 3. 确认命令菜单能找到被修改的命令。
 4. 至少测试：
+
+自动安装器：
+
+```bash
+./install-all.sh --tool all --dry-run
+```
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install-all.ps1 -Tool all -DryRun
+```
+
+核心命令：
 
 ```text
 /init 测试项目

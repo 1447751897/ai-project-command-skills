@@ -16,6 +16,7 @@ Thanks for improving AI Project Command Skills.
 - If you change installable Codex command names, update both `install.ps1` and `install.sh`.
 - If you add or rename workflow skills, keep `skills/` and `claude-skills/` in sync. Claude Code aliases should keep the `ai-` prefix.
 - If you change Claude Code command names, update both `install-claude.ps1` and `install-claude.sh`.
+- If you change install targets or skill lists, update `install-all.ps1` and `install-all.sh` too.
 - Keep `/super` as a compatibility alias for `/goal --super`.
 
 ## Validation
@@ -26,6 +27,18 @@ Before publishing a change:
 2. Restart Codex desktop.
 3. Confirm the command menu can find the changed command.
 4. Test at least:
+
+Auto installer:
+
+```bash
+./install-all.sh --tool all --dry-run
+```
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install-all.ps1 -Tool all -DryRun
+```
+
+Core commands:
 
 ```text
 /init Test project

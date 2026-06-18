@@ -28,7 +28,54 @@ Codex uses the original command names. Claude Code uses `ai-` prefixed aliases t
 | Resume work in a new chat | `/continue` | `/ai-continue` |
 | Update installed skills or project docs | `/upgrade` | `/ai-upgrade` |
 
-## Install For Codex
+## One-Step Install Or Update
+
+Use the auto installer when you want one script to configure everything it can find on the machine. It detects Codex and Claude Code, then installs or updates the matching skill packages.
+
+### Windows
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install-all.ps1
+```
+
+### macOS/Linux
+
+```bash
+chmod +x ./install-all.sh
+./install-all.sh
+```
+
+Install from the latest GitHub package without cloning the full repo:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install-all.ps1 -Source github
+```
+
+```bash
+./install-all.sh --source github
+```
+
+Force installation for both tools even if auto-detection does not find them:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install-all.ps1 -Tool all
+```
+
+```bash
+./install-all.sh --tool all
+```
+
+Preview changes without writing local skills:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install-all.ps1 -Source github -DryRun
+```
+
+```bash
+./install-all.sh --source github --dry-run
+```
+
+## Install For Codex Only
 
 Clone this repository or download the source zip, then run the installer from the repository root.
 
@@ -53,7 +100,7 @@ The Codex installer copies skills into:
 
 Restart Codex desktop after installation so the command menu can rescan the skills.
 
-## Install For Claude Code
+## Install For Claude Code Only
 
 ### Windows
 
@@ -169,6 +216,8 @@ These files are the continuity layer. They let another chat, another AI assistan
 ```text
 skills/                 Codex skill folders installed into ~/.agents/skills
 claude-skills/          Claude Code alias skill folders installed into ~/.claude/skills
+install-all.ps1         Auto-detecting Windows installer/updater for Codex and Claude Code
+install-all.sh          Auto-detecting macOS/Linux installer/updater for Codex and Claude Code
 install.ps1             Codex Windows installer
 install.sh              Codex macOS/Linux installer
 install-claude.ps1      Claude Code Windows installer
@@ -202,20 +251,18 @@ For Claude Code:
 
 The updater downloads the latest package from `1447751897/ai-project-command-skills`, validates the skill folders, backs up existing installed skills under the target tool's `.backup/` directory, then replaces the installed skill folders. Restart the relevant tool after the update.
 
-Manual update still works too. Pull the latest repository changes and rerun the installer:
+Manual update still works too. Pull the latest repository changes and rerun the auto installer:
 
 ```bash
 git pull
-./install.sh
-./install-claude.sh
+./install-all.sh
 ```
 
 On Windows:
 
 ```powershell
 git pull
-powershell -ExecutionPolicy Bypass -File .\install.ps1
-powershell -ExecutionPolicy Bypass -File .\install-claude.ps1
+powershell -ExecutionPolicy Bypass -File .\install-all.ps1
 ```
 
 Inside a project that was already initialized, run `/upgrade` in Codex or `/ai-upgrade` in Claude Code. This adds missing new docs and rules without overwriting project-specific content.
