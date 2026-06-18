@@ -8,6 +8,8 @@ Thumbs.db
 *.log
 tmp/
 temp/
+__pycache__/
+*.pyc
 
 # Archives generated for distribution
 *.zip
@@ -15,4 +17,3 @@ temp/
 # Local test projects
 work/
 scratch/
-

@@ -59,7 +59,7 @@ project-root/
 8. 每次启动、部署方式变化后更新 `07-local-development.md` 或 `08-deployment.md`。
 9. 每次暂停、切换对话、阶段完成或交接前更新 `10-current-status.md`。
 10. 每次目录结构或模块边界变化后更新 `11-project-structure.md`。
-11. 每次使用 `/upgrade` 补齐新模板后更新 `12-upgrade-history.md`。
+11. 每次使用 `/upgrade` 补齐项目新模板后更新 `12-upgrade-history.md`；如果是更新本地已安装 skills，则运行本地 skills 更新器并提示重启 Codex desktop。
 12. 每次新增、删除或改变命令语义后更新 `13-command-reference.md`。
 13. 没有明确下一步时使用 `/plan` 获取功能推荐和优先级建议。
 14. 想让 AI 围绕一个最终目标自动推进时使用 `/goal`。
@@ -96,3 +96,11 @@ AI 必须先读取 `docs/10-current-status.md` 以及相关项目文档，再继
 ```
 
 AI 必须只补齐缺失文档和新增规则，不覆盖已有项目内容，并更新 `docs/12-upgrade-history.md`。
+
+如果用户要求更新本地已安装的 skills，例如“从 GitHub 更新本地 skills”或“刷新 ~/.agents/skills”，`/upgrade` 应运行：
+
+```text
+python <installed-skills-dir>/upgrade/scripts/update_installed_skills.py
+```
+
+该脚本会下载 GitHub 最新包、验证 skill 文件夹、备份旧安装并覆盖本地 skill 文件夹。完成后需要重启 Codex desktop。

@@ -1,6 +1,6 @@
 ---
 name: upgrade
-description: Use when the user writes /upgrade or wants to apply a newer version of these project workflow skills/templates to a project that was already initialized. Copy only missing docs including command reference and decision log, preserve existing content, record upgrade history, update current status, and propose additive merges for new rules such as /goal --super behavior, project structure, performance requirements, technical-selection gates, planning behavior, goal-mode behavior, test-step output, or command behavior. Also follows the shared project-kickoff document-first workflow and supports related prefixes /init, /goal, /goal --super, /super, /feature, /change, /fix, /tech, /deploy, /handoff, /roadmap, /plan, /status, /continue, and /upgrade.
+description: Use when the user writes /upgrade, wants to update local installed skills from GitHub, refresh ~/.agents/skills, update slash commands, or apply newer project workflow templates to an initialized project. For local skill package updates, download the latest GitHub package and update installed skills. For project docs upgrades, copy only missing docs, preserve existing content, record upgrade history, update current status, and propose additive merges for new rules. Also follows the shared project-kickoff document-first workflow and supports related prefixes /init, /goal, /goal --super, /super, /feature, /change, /fix, /tech, /deploy, /handoff, /roadmap, /plan, /status, /continue, and /upgrade.
 ---
 
 # Upgrade
@@ -45,7 +45,7 @@ Command behavior:
 - `/plan`: when the user has no clear next step or asks what to add/improve, read existing docs, recommend feature/optimization directions with value, complexity, priority, dependencies, and risks, then wait for the user to choose. Do not implement directly.
 - `/status`: inspect the current workspace, recent changes, docs, tests, and known pending work; update `docs/10-current-status.md` with a concise handoff-ready snapshot. Do not implement new work unless the user explicitly asks.
 - `/continue`: read `AI_DEVELOPMENT_RULES.md`, `docs/00_START_HERE.md`, `docs/10-current-status.md`, `docs/03-feature-changelog.md`, `docs/06-roadmap.md`, and `docs/05-handoff-guide.md`; summarize current state and continue only after identifying the next safe task.
-- `/upgrade`: run the upgrade flow to copy only missing template docs, preserve existing project content, update `docs/12-upgrade-history.md`, and then update `docs/10-current-status.md`.
+- `/upgrade`: if the user asks to update local skills, run `scripts/update_installed_skills.py` to download the latest GitHub package and update `~/.agents/skills`; otherwise copy only missing project template docs, preserve existing content, update `docs/12-upgrade-history.md`, and then update `docs/10-current-status.md`.
 
 If the user omits the skill name but starts with one of these prefixes, apply this skill.
 
@@ -145,10 +145,23 @@ Behavior:
 - Skips files that already exist.
 - Use `--overwrite` only if the user explicitly asks to replace existing docs.
 
-Use the upgrade script when a project was initialized by an older skill version:
+Use the local skills updater when the user asks to update this skill package, update local commands, pull the latest GitHub package, or refresh `~/.agents/skills`:
 
 ```powershell
-python <installed-skills-dir>/init/scripts/upgrade_project_docs.py <project-root>
+python <installed-skills-dir>/upgrade/scripts/update_installed_skills.py
+```
+
+Behavior:
+
+- Downloads `https://github.com/1447751897/ai-project-command-skills` as a zip archive.
+- Validates that all expected skill folders are present.
+- Backs up existing installed skills under `~/.agents/skills/.backup/`.
+- Replaces the installed skill folders and tells the user to restart Codex desktop.
+
+Use the project docs upgrade script when a project was initialized by an older skill version and the user asks to add missing project docs or template rules:
+
+```powershell
+python <installed-skills-dir>/upgrade/scripts/upgrade_project_docs.py <project-root>
 ```
 
 Behavior:
@@ -236,11 +249,11 @@ When handling `/continue`:
 
 When handling `/upgrade`:
 
-1. Run `scripts/upgrade_project_docs.py <project-root>` or manually apply the same behavior.
-2. Do not overwrite existing project docs.
-3. Read the list of new files and summarize what was added.
-4. If new rules need to be merged into existing docs, propose the merge and apply it as an additive edit.
-5. Update `docs/10-current-status.md` with the upgrade result.
+1. Classify the request first.
+2. If the user asks to update local skills, commands, this skill package, or the latest GitHub version, run `scripts/update_installed_skills.py`. Use `--dry-run` first when the user asks to preview only.
+3. If the user asks to upgrade an initialized project, run `scripts/upgrade_project_docs.py <project-root>` or manually apply the same behavior.
+4. For project docs upgrades, never overwrite existing project docs; read the list of new files, summarize what was added, propose/apply additive merges for new rules, and update `docs/10-current-status.md`.
+5. For local skill package updates, summarize the downloaded repository/branch, target install path, backup path if created, installed commands, and tell the user to restart Codex desktop.
 
 When handling `/goal`:
 

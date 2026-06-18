@@ -24,7 +24,7 @@
 | `/plan` | 当你不确定下一步做什么时，让 AI 推荐后续功能或优化方向。 |
 | `/status` | 写入当前进度快照，方便以后继续。 |
 | `/continue` | 在新对话里读取项目文档和当前状态后继续开发。 |
-| `/upgrade` | 把新版模板中缺失的文档/规则补进已有项目，不覆盖项目已有内容。 |
+| `/upgrade` | 从 GitHub 更新本地已安装的 skills，或把新版模板中缺失的文档/规则补进已有项目且不覆盖已有内容。 |
 
 ## 安装
 
@@ -89,6 +89,12 @@ chmod +x ./install.sh
 /upgrade
 ```
 
+从 GitHub 最新包更新本地已安装的 skills：
+
+```text
+/upgrade 从 GitHub 更新我本地的 skills。
+```
+
 ## Skill 会创建的项目文档
 
 项目初始化后，会得到类似下面的文档集合：
@@ -148,7 +154,15 @@ SECURITY.zh-CN.md       简体中文安全策略
 
 ## 更新已安装的 Skills
 
-拉取最新仓库内容并重新运行安装脚本：
+如果这些 skills 已经安装到本机，可以直接让 Codex 运行更新器：
+
+```text
+/upgrade 从 GitHub 更新我本地的 skills。
+```
+
+更新器会从 `1447751897/ai-project-command-skills` 下载最新包，验证 skill 文件夹完整性，把旧版安装备份到 `~/.agents/skills/.backup/`，然后替换本地已安装的 skill 文件夹。更新完成后需要重启 Codex desktop。
+
+手动更新也仍然可用。拉取最新仓库内容并重新运行安装脚本：
 
 ```bash
 git pull

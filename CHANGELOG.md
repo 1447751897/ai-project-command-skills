@@ -8,6 +8,7 @@ Documentation update.
 
 - Added Simplified Chinese documentation for Chinese-speaking users.
 - Added language links between English and Chinese documentation files.
+- Added a local skills updater for `/upgrade` so installed skills can be refreshed from the latest GitHub package.
 
 ## 0.1.0 - 2026-06-17
 

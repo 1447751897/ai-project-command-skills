@@ -24,7 +24,7 @@ This package installs a set of slash-style workflow skills such as `/init`, `/go
 | `/plan` | Recommend next features or improvements when you do not know what to build next. |
 | `/status` | Write a current progress snapshot for later continuation. |
 | `/continue` | Resume work in a new chat from project docs and current status. |
-| `/upgrade` | Add missing docs/rules from a newer version without overwriting project content. |
+| `/upgrade` | Update installed skills from GitHub, or add missing docs/rules to an existing project without overwriting project content. |
 
 ## Install
 
@@ -89,6 +89,12 @@ Upgrade an existing project that was initialized with an older version:
 /upgrade
 ```
 
+Update the locally installed skills from the latest GitHub package:
+
+```text
+/upgrade Update my local skills from GitHub.
+```
+
 ## Project Docs Created By The Skills
 
 When initialized, projects receive a document set like:
@@ -148,7 +154,15 @@ Each command is packaged as a standalone skill folder so Codex can expose it in 
 
 ## Updating Installed Skills
 
-Pull the latest repository changes and rerun the installer:
+If these skills are already installed, ask Codex to run the updater:
+
+```text
+/upgrade Update my local skills from GitHub.
+```
+
+The updater downloads the latest package from `1447751897/ai-project-command-skills`, validates the skill folders, backs up existing installed skills under `~/.agents/skills/.backup/`, then replaces the installed skill folders. Restart Codex desktop after the update.
+
+Manual update still works too. Pull the latest repository changes and rerun the installer:
 
 ```bash
 git pull
