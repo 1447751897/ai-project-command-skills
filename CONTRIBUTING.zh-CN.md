@@ -13,7 +13,9 @@
   - `docs/09-ai-project-start-prompt.md`
   - 如有必要，更新 `docs/12-upgrade-history.md` 的预期说明
 - 如果修改技术决策行为，请同步更新 `docs/04-tech-decisions.md`，必要时也更新 `docs/14-decision-log.md`。
-- 如果修改可安装命令名称，请同时更新 `install.ps1` 和 `install.sh`。
+- 如果修改 Codex 可安装命令名称，请同时更新 `install.ps1` 和 `install.sh`。
+- 如果新增或重命名 workflow skill，请保持 `skills/` 和 `claude-skills/` 同步。Claude Code 别名应保留 `ai-` 前缀。
+- 如果修改 Claude Code 命令名称，请同时更新 `install-claude.ps1` 和 `install-claude.sh`。
 - 保留 `/super` 作为 `/goal --super` 的兼容别名。
 - 如果修改面向用户的顶层英文文档，请同步维护对应的 `*.zh-CN.md` 中文文档。
 
@@ -35,11 +37,23 @@
 /continue
 ```
 
+Claude Code 兼容性还需要验证别名包：
+
+```text
+/ai-init 测试项目
+/ai-goal 测试目标
+/ai-goal --super 测试目标
+/ai-upgrade
+/ai-status
+/ai-continue
+```
+
 ## Pull Request
 
 请在 PR 中说明：
 
 - 哪个命令或文档行为发生了变化。
 - 哪些内置模板被更新。
+- 如果适用，Codex skills 和 Claude Code 别名 skills 是否都已同步。
 - 英文/中文文档是否都已同步。
 - 你如何验证这次变更。

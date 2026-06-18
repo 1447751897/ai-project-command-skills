@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deploy"
+  short_description: "Update deployment and rollback docs"
+  default_prompt: "Use $deploy with /ai-deploy to update deployment or release instructions."

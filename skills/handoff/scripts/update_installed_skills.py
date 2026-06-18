@@ -11,7 +11,8 @@ from pathlib import Path
 
 DEFAULT_REPOSITORY = "1447751897/ai-project-command-skills"
 DEFAULT_BRANCH = "master"
-SKILL_NAMES = [
+
+CODEX_SKILL_NAMES = [
     "init",
     "goal",
     "super",
@@ -29,9 +30,50 @@ SKILL_NAMES = [
     "project-kickoff-docs",
 ]
 
+CLAUDE_SKILL_NAMES = [
+    "ai-init",
+    "ai-goal",
+    "ai-super",
+    "ai-feature",
+    "ai-change",
+    "ai-fix",
+    "ai-tech",
+    "ai-deploy",
+    "ai-handoff",
+    "ai-roadmap",
+    "ai-plan",
+    "ai-status",
+    "ai-continue",
+    "ai-upgrade",
+    "ai-project-kickoff-docs",
+]
 
-def default_target_root() -> Path:
+
+def infer_tool_from_script_path() -> str:
+    parts = {part.lower() for part in Path(__file__).resolve().parts}
+    if "claude-skills" in parts or any(name in parts for name in CLAUDE_SKILL_NAMES):
+        return "claude"
+    return "codex"
+
+
+def default_target_root(tool: str) -> Path:
+    if tool == "claude":
+        return Path.home() / ".claude" / "skills"
     return Path.home() / ".agents" / "skills"
+
+
+def source_dir_name(tool: str) -> str:
+    return "claude-skills" if tool == "claude" else "skills"
+
+
+def expected_skill_names(tool: str) -> list[str]:
+    return CLAUDE_SKILL_NAMES if tool == "claude" else CODEX_SKILL_NAMES
+
+
+def restart_message(tool: str) -> str:
+    return "Restart Claude Code so it can rescan skills." if tool == "claude" else (
+        "Restart Codex desktop so the command menu can rescan skills."
+    )
 
 
 def download_zip(repository: str, branch: str, destination: Path) -> None:
@@ -42,18 +84,18 @@ def download_zip(repository: str, branch: str, destination: Path) -> None:
         destination.write_bytes(response.read())
 
 
-def find_package_root(extract_root: Path) -> Path:
+def find_package_root(extract_root: Path, required_source_dir: str) -> Path:
     candidates = [path for path in extract_root.iterdir() if path.is_dir()]
     for candidate in candidates:
-        if (candidate / "skills").is_dir():
+        if (candidate / required_source_dir).is_dir():
             return candidate
-    raise SystemExit("Downloaded package does not contain a skills directory.")
+    raise SystemExit(f"Downloaded package does not contain a {required_source_dir} directory.")
 
 
-def validate_skills(skills_root: Path) -> list[str]:
+def validate_skills(skills_root: Path, skill_names: list[str]) -> list[str]:
     available: list[str] = []
     missing: list[str] = []
-    for name in SKILL_NAMES:
+    for name in skill_names:
         skill_md = skills_root / name / "SKILL.md"
         if skill_md.is_file():
             available.append(name)
@@ -100,20 +142,34 @@ def install_skills(source_root: Path, target_root: Path, skill_names: list[str],
 
 
 def main() -> int:
+    inferred_tool = infer_tool_from_script_path()
     parser = argparse.ArgumentParser(
         description="Download the latest AI Project Command Skills from GitHub and install them locally."
     )
     parser.add_argument("--repository", default=DEFAULT_REPOSITORY, help="GitHub repository in owner/name form")
     parser.add_argument("--branch", default=DEFAULT_BRANCH, help="Git branch to download")
     parser.add_argument(
+        "--tool",
+        choices=["codex", "claude"],
+        default=inferred_tool,
+        help="Install target tool. Defaults to the current skill package type.",
+    )
+    parser.add_argument(
         "--target-root",
-        default=str(default_target_root()),
-        help="Local skills directory, default: ~/.agents/skills",
+        default=None,
+        help="Local skills directory. Defaults to ~/.agents/skills for Codex or ~/.claude/skills for Claude Code.",
     )
     parser.add_argument("--dry-run", action="store_true", help="Download and validate without changing local skills")
     args = parser.parse_args()
 
-    target_root = Path(args.target_root).expanduser().resolve()
+    target_root = (
+        Path(args.target_root).expanduser().resolve()
+        if args.target_root
+        else default_target_root(args.tool).resolve()
+    )
+    required_source_dir = source_dir_name(args.tool)
+    expected_names = expected_skill_names(args.tool)
+
     with tempfile.TemporaryDirectory(prefix="ai-project-command-skills-") as temp_dir:
         temp_root = Path(temp_dir)
         zip_path = temp_root / "package.zip"
@@ -124,18 +180,20 @@ def main() -> int:
         with zipfile.ZipFile(zip_path) as archive:
             archive.extractall(extract_root)
 
-        package_root = find_package_root(extract_root)
-        skills_root = package_root / "skills"
-        skill_names = validate_skills(skills_root)
+        package_root = find_package_root(extract_root, required_source_dir)
+        skills_root = package_root / required_source_dir
+        skill_names = validate_skills(skills_root, expected_names)
 
+        print(f"Tool: {args.tool}")
         print(f"Package root: {package_root}")
+        print(f"Source skills: {skills_root}")
         print(f"Target root: {target_root}")
         install_skills(skills_root, target_root, skill_names, args.dry_run)
 
     if args.dry_run:
         print("Dry run complete. No local skills were changed.")
     else:
-        print("Update complete. Restart Codex desktop so the command menu can rescan skills.")
+        print("Update complete. " + restart_message(args.tool))
     return 0
 
 

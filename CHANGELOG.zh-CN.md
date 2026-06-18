@@ -2,6 +2,16 @@
 
 简体中文 | [English](CHANGELOG.md)
 
+## 0.2.0 - 2026-06-18
+
+适配 Claude Code。
+
+- 新增 `claude-skills/`，提供 Claude Code 专用别名 skills。
+- 新增 Claude Code 安装脚本：`install-claude.ps1` 和 `install-claude.sh`。
+- 为 Claude Code 新增 `/ai-*` 命令别名，避免和 `/init`、`/plan`、`/upgrade` 等内置命令冲突。
+- 扩展 GitHub 自更新器，支持 `--tool codex|claude`；Codex 更新到 `~/.agents/skills`，Claude Code 更新到 `~/.claude/skills`。
+- 更新英文和简体中文文档，补充双工具安装方式和命令对照表。
+
 ## 0.1.1 - 2026-06-17
 
 文档更新。

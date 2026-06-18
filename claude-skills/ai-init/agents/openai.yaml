@@ -1,0 +1,4 @@
+interface:
+  display_name: "Init"
+  short_description: "Clarify requirements and initialize docs"
+  default_prompt: "Use $init with /ai-init to clarify a new project and initialize its docs before development."

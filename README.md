@@ -2,31 +2,33 @@
 
 [简体中文](README.zh-CN.md) | English
 
-Document-first Codex skills for project kickoff, feature work, goal-mode execution, handoff, and cross-chat continuation.
+Document-first workflow skills for AI coding assistants. The package supports both Codex and Claude Code, with commands for project kickoff, feature work, goal-mode execution, handoff, and cross-chat continuation.
 
-This package installs a set of slash-style workflow skills such as `/init`, `/goal`, `/feature`, `/status`, and `/continue`. The skills help an AI coding assistant clarify requirements, maintain project docs, make technical decisions deliberately, and keep enough project state on disk for future chats or developers to continue.
+The skills help an AI coding assistant clarify requirements, maintain project docs, make technical decisions deliberately, and keep enough project state on disk for future chats or developers to continue.
 
-## Commands
+## Command Names
 
-| Command | Purpose |
-| --- | --- |
-| `/init` | Start a new project: clarify requirements, scaffold project docs, and wait for confirmation before development. |
-| `/goal` | Run a long project or phase objective with automatic task breakdown and progress. |
-| `/goal --super` | High-autonomy goal mode: AI makes ordinary product/technical decisions and records them. |
-| `/super` | Compatibility alias for `/goal --super`. |
-| `/feature` | Add a new feature with docs, changelog, and page test steps. |
-| `/change` | Change existing behavior or business rules with impact tracking. |
-| `/fix` | Diagnose, fix, verify, and record a bug fix. |
-| `/tech` | Compare technical options before adopting a major dependency or architecture choice. |
-| `/deploy` | Update deployment, environment, CI/CD, release, or rollback guidance. |
-| `/handoff` | Update onboarding, project structure, and handoff guidance. |
-| `/roadmap` | Update phases, MVP scope, milestones, and priorities. |
-| `/plan` | Recommend next features or improvements when you do not know what to build next. |
-| `/status` | Write a current progress snapshot for later continuation. |
-| `/continue` | Resume work in a new chat from project docs and current status. |
-| `/upgrade` | Update installed skills from GitHub, or add missing docs/rules to an existing project without overwriting project content. |
+Codex uses the original command names. Claude Code uses `ai-` prefixed aliases to avoid collisions with built-in Claude Code commands such as `/init`, `/plan`, and `/upgrade`.
 
-## Install
+| Purpose | Codex | Claude Code |
+| --- | --- | --- |
+| Start a new project | `/init` | `/ai-init` |
+| Run a long project or phase objective | `/goal` | `/ai-goal` |
+| High-autonomy goal mode | `/goal --super` | `/ai-goal --super` |
+| High-autonomy alias | `/super` | `/ai-super` |
+| Add a new feature | `/feature` | `/ai-feature` |
+| Change existing behavior or rules | `/change` | `/ai-change` |
+| Diagnose and fix a bug | `/fix` | `/ai-fix` |
+| Compare technical options | `/tech` | `/ai-tech` |
+| Update deployment or release guidance | `/deploy` | `/ai-deploy` |
+| Update onboarding and handoff guidance | `/handoff` | `/ai-handoff` |
+| Update phases, milestones, and priorities | `/roadmap` | `/ai-roadmap` |
+| Recommend next features or improvements | `/plan` | `/ai-plan` |
+| Write a current progress snapshot | `/status` | `/ai-status` |
+| Resume work in a new chat | `/continue` | `/ai-continue` |
+| Update installed skills or project docs | `/upgrade` | `/ai-upgrade` |
+
+## Install For Codex
 
 Clone this repository or download the source zip, then run the installer from the repository root.
 
@@ -43,13 +45,36 @@ chmod +x ./install.sh
 ./install.sh
 ```
 
-The installer copies skills into:
+The Codex installer copies skills into:
 
 ```text
 ~/.agents/skills
 ```
 
 Restart Codex desktop after installation so the command menu can rescan the skills.
+
+## Install For Claude Code
+
+### Windows
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install-claude.ps1
+```
+
+### macOS/Linux
+
+```bash
+chmod +x ./install-claude.sh
+./install-claude.sh
+```
+
+The Claude Code installer copies alias skills into:
+
+```text
+~/.claude/skills
+```
+
+Restart Claude Code after installation so it can rescan the skills. Use `/ai-init`, `/ai-goal`, `/ai-feature`, and the other `ai-` commands in Claude Code.
 
 ## Typical Usage
 
@@ -59,16 +84,22 @@ Start a new project:
 /init Build a team task management app with login, projects, kanban tasks, member invites, basic permissions, local setup, and deployment docs.
 ```
 
-Run a whole goal with normal confirmation gates:
+Claude Code equivalent:
 
 ```text
-/goal Complete the team task management MVP.
+/ai-init Build a team task management app with login, projects, kanban tasks, member invites, basic permissions, local setup, and deployment docs.
 ```
 
 Run a whole goal in high-autonomy mode:
 
 ```text
 /goal --super Complete the team task management MVP. Make ordinary product and technical decisions yourself, record key decisions, and only stop for paid services, destructive actions, secrets, production data, or security/compliance risks.
+```
+
+Claude Code equivalent:
+
+```text
+/ai-goal --super Complete the team task management MVP. Make ordinary product and technical decisions yourself, record key decisions, and only stop for paid services, destructive actions, secrets, production data, or security/compliance risks.
 ```
 
 Resume in a new chat:
@@ -83,16 +114,16 @@ Before leaving a chat:
 /status
 ```
 
-Upgrade an existing project that was initialized with an older version:
-
-```text
-/upgrade
-```
-
 Update the locally installed skills from the latest GitHub package:
 
 ```text
 /upgrade Update my local skills from GitHub.
+```
+
+Claude Code equivalent:
+
+```text
+/ai-upgrade Update my local skills from GitHub.
 ```
 
 ## Project Docs Created By The Skills
@@ -124,9 +155,9 @@ These files are the continuity layer. They let another chat, another AI assistan
 ## Design Principles
 
 - New projects start with clarification and docs before implementation.
-- Existing projects use `/upgrade`, not a destructive re-init.
+- Existing projects use `/upgrade` or `/ai-upgrade`, not a destructive re-init.
 - Technical choices normally require options and confirmation.
-- `/goal --super` skips ordinary confirmation but records important decisions.
+- `--super` skips ordinary confirmation but records important decisions.
 - Page-facing work must end with manual browser test steps.
 - Cross-chat continuity goes through `docs/10-current-status.md`.
 - Project structure knowledge goes into `docs/11-project-structure.md`.
@@ -136,9 +167,12 @@ These files are the continuity layer. They let another chat, another AI assistan
 ## Repository Layout
 
 ```text
-skills/                 Skill folders installed into ~/.agents/skills
-install.ps1             Windows installer
-install.sh              macOS/Linux installer
+skills/                 Codex skill folders installed into ~/.agents/skills
+claude-skills/          Claude Code alias skill folders installed into ~/.claude/skills
+install.ps1             Codex Windows installer
+install.sh              Codex macOS/Linux installer
+install-claude.ps1      Claude Code Windows installer
+install-claude.sh       Claude Code macOS/Linux installer
 README.md               Project documentation
 README.zh-CN.md         Simplified Chinese documentation
 LICENSE                 MIT license
@@ -150,23 +184,30 @@ SECURITY.md             Security policy
 SECURITY.zh-CN.md       Simplified Chinese security policy
 ```
 
-Each command is packaged as a standalone skill folder so Codex can expose it in the command menu. This intentionally duplicates the bundled project template across command aliases for easy installation and offline use.
+Each command is packaged as a standalone skill folder. The repository intentionally duplicates the bundled project template across command aliases for easy installation and offline use.
 
 ## Updating Installed Skills
 
-If these skills are already installed, ask Codex to run the updater:
+For Codex:
 
 ```text
 /upgrade Update my local skills from GitHub.
 ```
 
-The updater downloads the latest package from `1447751897/ai-project-command-skills`, validates the skill folders, backs up existing installed skills under `~/.agents/skills/.backup/`, then replaces the installed skill folders. Restart Codex desktop after the update.
+For Claude Code:
+
+```text
+/ai-upgrade Update my local skills from GitHub.
+```
+
+The updater downloads the latest package from `1447751897/ai-project-command-skills`, validates the skill folders, backs up existing installed skills under the target tool's `.backup/` directory, then replaces the installed skill folders. Restart the relevant tool after the update.
 
 Manual update still works too. Pull the latest repository changes and rerun the installer:
 
 ```bash
 git pull
 ./install.sh
+./install-claude.sh
 ```
 
 On Windows:
@@ -174,14 +215,7 @@ On Windows:
 ```powershell
 git pull
 powershell -ExecutionPolicy Bypass -File .\install.ps1
+powershell -ExecutionPolicy Bypass -File .\install-claude.ps1
 ```
 
-Then restart Codex desktop.
-
-Inside a project that was already initialized, run:
-
-```text
-/upgrade
-```
-
-This adds missing new docs and rules without overwriting project-specific content.
+Inside a project that was already initialized, run `/upgrade` in Codex or `/ai-upgrade` in Claude Code. This adds missing new docs and rules without overwriting project-specific content.

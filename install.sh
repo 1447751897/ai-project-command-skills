@@ -3,7 +3,7 @@ set -euo pipefail
 
 PACKAGE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SKILLS_SOURCE="$PACKAGE_ROOT/skills"
-TARGET_ROOT="$HOME/.agents/skills"
+TARGET_ROOT="${1:-$HOME/.agents/skills}"
 
 if [ ! -d "$SKILLS_SOURCE" ]; then
   echo "Missing skills directory: $SKILLS_SOURCE" >&2

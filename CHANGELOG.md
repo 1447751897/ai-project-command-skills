@@ -2,6 +2,16 @@
 
 [简体中文](CHANGELOG.zh-CN.md) | English
 
+## 0.2.0 - 2026-06-18
+
+Claude Code compatibility.
+
+- Added Claude Code alias skills under `claude-skills/`.
+- Added Claude Code installers: `install-claude.ps1` and `install-claude.sh`.
+- Added `/ai-*` command aliases for Claude Code to avoid conflicts with built-in commands such as `/init`, `/plan`, and `/upgrade`.
+- Extended the GitHub self-updater with `--tool codex|claude`, so Codex updates `~/.agents/skills` and Claude Code updates `~/.claude/skills`.
+- Updated English and Simplified Chinese documentation with dual-tool installation and command tables.
+
 ## 0.1.1 - 2026-06-17
 
 Documentation update.

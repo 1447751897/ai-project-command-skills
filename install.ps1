@@ -1,8 +1,11 @@
+param(
+    [string]$TargetRoot = (Join-Path $env:USERPROFILE ".agents\skills")
+)
+
 $ErrorActionPreference = "Stop"
 
 $PackageRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $SkillsSource = Join-Path $PackageRoot "skills"
-$TargetRoot = Join-Path $env:USERPROFILE ".agents\skills"
 
 if (-not (Test-Path $SkillsSource)) {
     throw "Missing skills directory: $SkillsSource"
