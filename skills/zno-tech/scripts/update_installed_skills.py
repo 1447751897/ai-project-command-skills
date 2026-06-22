@@ -51,7 +51,7 @@ CLAUDE_SKILL_NAMES = [
 
 def infer_tool_from_script_path() -> str:
     parts = {part.lower() for part in Path(__file__).resolve().parts}
-    if "claude-skills" in parts or any(name in parts for name in CLAUDE_SKILL_NAMES):
+    if ".claude" in parts or any(name in parts for name in CLAUDE_SKILL_NAMES):
         return "claude"
     return "codex"
 
@@ -63,7 +63,7 @@ def default_target_root(tool: str) -> Path:
 
 
 def source_dir_name(tool: str) -> str:
-    return "claude-skills" if tool == "claude" else "skills"
+    return "skills"
 
 
 def expected_skill_names(tool: str) -> list[str]:
