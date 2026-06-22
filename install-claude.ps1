@@ -5,7 +5,7 @@ param(
 $ErrorActionPreference = "Stop"
 
 $PackageRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
-$SkillsSource = Join-Path $PackageRoot "claude-skills"
+$SkillsSource = Join-Path $PackageRoot "skills"
 
 if (-not (Test-Path $SkillsSource)) {
     throw "Missing Claude skills directory: $SkillsSource"

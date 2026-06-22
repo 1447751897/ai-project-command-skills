@@ -2,7 +2,7 @@
 set -euo pipefail
 
 PACKAGE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SKILLS_SOURCE="$PACKAGE_ROOT/claude-skills"
+SKILLS_SOURCE="$PACKAGE_ROOT/skills"
 TARGET_ROOT="${1:-$HOME/.claude/skills}"
 
 if [ ! -d "$SKILLS_SOURCE" ]; then

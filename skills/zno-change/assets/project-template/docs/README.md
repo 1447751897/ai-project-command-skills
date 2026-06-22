@@ -97,12 +97,12 @@ project-root/
 8. 每次启动、部署方式变化后更新 `operations/07-local-development.md` 或 `operations/08-deployment.md`。
 9. 每次暂停、切换对话、阶段完成或交接前更新 `development/10-current-status.md`。
 10. 每次目录结构或模块边界变化后更新 `engineering/11-project-structure.md`。
-11. 每次使用 `/upgrade` 补齐项目新模板后更新 `maintenance/12-upgrade-history.md`；如果是更新本地已安装 skills，则运行本地 skills 更新器并提示重启 Codex desktop。
+11. 每次使用 `/zno-upgrade` 补齐项目新模板后更新 `maintenance/12-upgrade-history.md`；如果是更新本地已安装 skills，则运行本地 skills 更新器并提示重启 Claude Code。
 12. 每次新增、删除或改变命令语义后更新 `maintenance/13-command-reference.md`。
 13. 每次产品形态、UI 风格、布局、组件策略或交互状态发生变化后更新 `product/15-frontend-design.md`。
-14. 没有明确下一步时使用 `/plan` 获取功能推荐和优先级建议。
-15. 想让 AI 围绕一个最终目标自动推进时使用 `/goal`。
-16. 想让 AI 全程高自治推进、不等待普通确认时使用 `/goal --super`，但关键决策必须记录到 `development/14-decision-log.md`。`/super` 仅作为兼容别名。
+14. 没有明确下一步时使用 `/zno-plan` 获取功能推荐和优先级建议。
+15. 想让 AI 围绕一个最终目标自动推进时使用 `/zno-goal`。
+16. 想让 AI 全程高自治推进、不等待普通确认时使用 `/zno-goal --super`，但关键决策必须记录到 `development/14-decision-log.md`。`/zno-super` 仅作为兼容别名。
 
 ## 中途新增需求
 
@@ -115,13 +115,13 @@ project-root/
 当前对话准备结束或要切换到新对话时，先执行：
 
 ```text
-/status 总结当前开发进度
+/zno-status 总结当前开发进度
 ```
 
 新对话开始时执行：
 
 ```text
-/continue 继续上次开发
+/zno-continue 继续上次开发
 ```
 
 AI 必须先读取 `docs/development/10-current-status.md` 以及相关项目文档，再继续开发。
@@ -131,15 +131,15 @@ AI 必须先读取 `docs/development/10-current-status.md` 以及相关项目文
 如果项目已经初始化过，但 Skill 新版本增加了文档或规则，执行：
 
 ```text
-/upgrade
+/zno-upgrade
 ```
 
 AI 必须只补齐缺失文档和新增规则，不覆盖已有项目内容，并更新 `docs/maintenance/12-upgrade-history.md`。
 
-如果用户要求更新本地已安装的 skills，例如“从 GitHub 更新本地 skills”或“刷新 ~/.agents/skills”，`/upgrade` 应运行：
+如果用户要求更新本地已安装的 skills，例如“从 GitHub 更新本地 skills”或“刷新 ~/.claude/skills”，`/zno-upgrade` 应运行：
 
 ```text
-python <installed-skills-dir>/upgrade/scripts/update_installed_skills.py
+python <installed-skills-dir>/zno-upgrade/scripts/update_installed_skills.py
 ```
 
-该脚本会下载 GitHub 最新包、验证 skill 文件夹、备份旧安装并覆盖本地 skill 文件夹。完成后需要重启 Codex desktop。
+该脚本会下载 GitHub 最新包、验证 skill 文件夹、备份旧安装并覆盖本地 skill 文件夹。完成后需要重启 Claude Code。

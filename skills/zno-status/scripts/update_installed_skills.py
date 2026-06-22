@@ -9,43 +9,43 @@ from datetime import datetime
 from pathlib import Path
 
 
-DEFAULT_REPOSITORY = "1447751897/zno-project-command-skills"
+DEFAULT_REPOSITORY = "1447751897/ai-project-command-skills"
 DEFAULT_BRANCH = "master"
 
 CODEX_SKILL_NAMES = [
-    "init",
-    "goal",
-    "super",
-    "feature",
-    "change",
-    "fix",
-    "tech",
-    "deploy",
-    "handoff",
-    "roadmap",
-    "plan",
-    "status",
-    "continue",
-    "upgrade",
-    "project-kickoff-docs",
+    "zno-init",
+    "zno-goal",
+    "zno-super",
+    "zno-feature",
+    "zno-change",
+    "zno-fix",
+    "zno-tech",
+    "zno-deploy",
+    "zno-handoff",
+    "zno-roadmap",
+    "zno-plan",
+    "zno-status",
+    "zno-continue",
+    "zno-upgrade",
+    "zno-project-kickoff-docs",
 ]
 
 CLAUDE_SKILL_NAMES = [
-    "ai-init",
-    "ai-goal",
-    "ai-super",
-    "ai-feature",
-    "ai-change",
-    "ai-fix",
-    "ai-tech",
-    "ai-deploy",
-    "ai-handoff",
-    "ai-roadmap",
-    "ai-plan",
-    "ai-status",
-    "ai-continue",
-    "ai-upgrade",
-    "ai-project-kickoff-docs",
+    "zno-init",
+    "zno-goal",
+    "zno-super",
+    "zno-feature",
+    "zno-change",
+    "zno-fix",
+    "zno-tech",
+    "zno-deploy",
+    "zno-handoff",
+    "zno-roadmap",
+    "zno-plan",
+    "zno-status",
+    "zno-continue",
+    "zno-upgrade",
+    "zno-project-kickoff-docs",
 ]
 
 
@@ -79,7 +79,7 @@ def restart_message(tool: str) -> str:
 def download_zip(repository: str, branch: str, destination: Path) -> None:
     url = f"https://github.com/{repository}/archive/refs/heads/{branch}.zip"
     print(f"Downloading: {url}")
-    request = urllib.request.Request(url, headers={"User-Agent": "ai-project-command-skills-updater"})
+    request = urllib.request.Request(url, headers={"User-Agent": "zno-project-command-skills-updater"})
     with urllib.request.urlopen(request, timeout=60) as response:
         destination.write_bytes(response.read())
 
@@ -107,13 +107,59 @@ def validate_skills(skills_root: Path, skill_names: list[str]) -> list[str]:
     return available
 
 
+def rename_upstream_to_local(skills_root: Path) -> None:
+    """Rename ai-* directories from upstream to zno-* for local installation."""
+    for child in list(skills_root.iterdir()):
+        if child.is_dir() and child.name.startswith("ai-"):
+            new_name = "zno-" + child.name[3:]
+            target = child.parent / new_name
+            if not target.exists():
+                child.rename(target)
+                print(f"  Mapped upstream {child.name} -> {new_name}")
+
+
+def replace_prefix_in_files(skills_root: Path) -> None:
+    """Replace ai- prefix references with zno- in all text files after download."""
+    replacements = [
+        ("/ai-", "/zno-"),
+        ("name: ai-", "name: zno-"),
+        ("# Ai-", "# Zno-"),
+        ("'ai-", "'zno-"),
+        ('"ai-', '"zno-'),
+        ("The 'ai-' prefix", "The 'zno-' prefix"),
+    ]
+    text_extensions = {".md", ".py", ".yaml", ".yml", ".json", ".txt"}
+
+    count = 0
+    for filepath in skills_root.rglob("*"):
+        if not filepath.is_file():
+            continue
+        if filepath.suffix.lower() not in text_extensions:
+            continue
+        try:
+            content = filepath.read_text(encoding="utf-8")
+        except (UnicodeDecodeError, OSError):
+            continue
+
+        original = content
+        for old, new in replacements:
+            content = content.replace(old, new)
+
+        if content != original:
+            filepath.write_text(content, encoding="utf-8")
+            count += 1
+
+    if count:
+        print(f"  Replaced ai- -> zno- prefix in {count} files")
+
+
 def backup_existing(target_root: Path, skill_names: list[str]) -> Path | None:
     existing = [target_root / name for name in skill_names if (target_root / name).exists()]
     if not existing:
         return None
 
     backup_root = target_root / ".backup" / (
-        "ai-project-command-skills-" + datetime.now().strftime("%Y%m%d-%H%M%S")
+        "zno-skills-backup-" + datetime.now().strftime("%Y%m%d-%H%M%S")
     )
     backup_root.mkdir(parents=True, exist_ok=True)
     for source in existing:
@@ -170,7 +216,7 @@ def main() -> int:
     required_source_dir = source_dir_name(args.tool)
     expected_names = expected_skill_names(args.tool)
 
-    with tempfile.TemporaryDirectory(prefix="ai-project-command-skills-") as temp_dir:
+    with tempfile.TemporaryDirectory(prefix="zno-skills-backup-") as temp_dir:
         temp_root = Path(temp_dir)
         zip_path = temp_root / "package.zip"
         extract_root = temp_root / "extract"
@@ -182,6 +228,12 @@ def main() -> int:
 
         package_root = find_package_root(extract_root, required_source_dir)
         skills_root = package_root / required_source_dir
+
+        # Upstream repo uses ai-* directory names; rename to zno-* for local install
+        if args.tool == "claude":
+            rename_upstream_to_local(skills_root)
+            replace_prefix_in_files(skills_root)
+
         skill_names = validate_skills(skills_root, expected_names)
 
         print(f"Tool: {args.tool}")

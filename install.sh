@@ -13,21 +13,21 @@ fi
 mkdir -p "$TARGET_ROOT"
 
 SKILL_NAMES=(
-  init
-  goal
-  super
-  feature
-  change
-  fix
-  tech
-  deploy
-  handoff
-  roadmap
-  plan
-  status
-  continue
-  upgrade
-  project-kickoff-docs
+  zno-init
+  zno-goal
+  zno-super
+  zno-feature
+  zno-change
+  zno-fix
+  zno-tech
+  zno-deploy
+  zno-handoff
+  zno-roadmap
+  zno-plan
+  zno-status
+  zno-continue
+  zno-upgrade
+  zno-project-kickoff-docs
 )
 
 for name in "${SKILL_NAMES[@]}"; do
@@ -45,4 +45,4 @@ for name in "${SKILL_NAMES[@]}"; do
 done
 
 echo
-echo "Done. Restart Codex desktop, then try /init, /goal, /goal --super, /feature, /fix, /tech, /deploy, /handoff, /roadmap, /plan, /status, /continue, or /upgrade. /super is also available as a compatibility alias."
+echo "Done. Restart your AI coding tool, then try /zno-init, /zno-goal, /zno-goal --super, /zno-feature, /zno-fix, /zno-tech, /zno-deploy, /zno-handoff, /zno-roadmap, /zno-plan, /zno-status, /zno-continue, or /zno-upgrade. /zno-super is also available as a compatibility alias."

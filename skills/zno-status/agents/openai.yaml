@@ -1,4 +1,4 @@
 interface:
   display_name: "Status"
   short_description: "Write current progress for continuation"
-  default_prompt: "Use $status with /status to update docs/development/10-current-status.md for cross-chat continuation."
+  default_prompt: "Use $status with /zno-status to update docs/development/10-current-status.md for cross-chat continuation."

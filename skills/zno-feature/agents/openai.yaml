@@ -1,4 +1,4 @@
 interface:
   display_name: "Feature"
   short_description: "Clarify and document new features"
-  default_prompt: "Use $feature with /feature to clarify and implement a new project feature with docs updated."
+  default_prompt: "Use $feature with /zno-feature to clarify and implement a new project feature with docs updated."

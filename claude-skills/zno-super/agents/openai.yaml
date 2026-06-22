@@ -1,4 +1,0 @@
-interface:
-  display_name: "Super"
-  short_description: "Alias for /zno-goal --super"
-  default_prompt: "Use $super as an alias for /zno-goal --super to autonomously progress a project objective."

@@ -1,4 +1,0 @@
-interface:
-  display_name: "Tech"
-  short_description: "Recommend options before tech selection"
-  default_prompt: "Use $tech with /zno-tech to compare options and confirm a technical decision before implementation."

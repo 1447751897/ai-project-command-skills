@@ -3,7 +3,7 @@ set -euo pipefail
 
 TOOL="auto"
 SOURCE="local"
-REPOSITORY="1447751897/zno-project-command-skills"
+REPOSITORY="1447751897/ai-project-command-skills"
 BRANCH="master"
 CODEX_TARGET_ROOT="$HOME/.agents/skills"
 CLAUDE_TARGET_ROOT="$HOME/.claude/skills"
@@ -63,21 +63,21 @@ case "$SOURCE" in
 esac
 
 CODEX_SKILL_NAMES=(
-  init
-  goal
-  super
-  feature
-  change
-  fix
-  tech
-  deploy
-  handoff
-  roadmap
-  plan
-  status
-  continue
-  upgrade
-  project-kickoff-docs
+  zno-init
+  zno-goal
+  zno-super
+  zno-feature
+  zno-change
+  zno-fix
+  zno-tech
+  zno-deploy
+  zno-handoff
+  zno-roadmap
+  zno-plan
+  zno-status
+  zno-continue
+  zno-upgrade
+  zno-project-kickoff-docs
 )
 
 CLAUDE_SKILL_NAMES=(
@@ -202,7 +202,7 @@ install_skill_set() {
     restart_text="Restart Codex desktop so the command menu can rescan skills."
     skill_names=("${CODEX_SKILL_NAMES[@]}")
   else
-    source_root="$root/claude-skills"
+    source_root="$root/skills"
     target_root="$CLAUDE_TARGET_ROOT"
     restart_text="Restart Claude Code so it can rescan skills."
     skill_names=("${CLAUDE_SKILL_NAMES[@]}")
