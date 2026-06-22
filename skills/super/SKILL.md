@@ -1,6 +1,6 @@
 ---
 name: super
-description: Compatibility alias for /goal --super. Use when the user writes /super or wants high-autonomy project execution without ordinary confirmation prompts. Enter goal-mode behavior, make product/technical/implementation decisions autonomously, continue execution, record key decisions in docs/14-decision-log.md, and stop only for paid services, production data deletion, secrets, destructive git operations, or clear security/compliance risks. Also follows the shared project-kickoff document-first workflow and supports related prefixes /init, /goal, /goal --super, /super, /feature, /change, /fix, /tech, /deploy, /handoff, /roadmap, /plan, /status, /continue, and /upgrade. Includes frontend design direction, UI style reference collection, design keywords, and frontend design documentation updates.
+description: Compatibility alias for /goal --super. Use when the user writes /super or wants high-autonomy project execution without ordinary confirmation prompts. Enter goal-mode behavior, make product/technical/implementation decisions autonomously, continue execution, record key decisions in docs/development/14-decision-log.md, and stop only for paid services, production data deletion, secrets, destructive git operations, or clear security/compliance risks. Also follows the shared project-kickoff document-first workflow and supports related prefixes /init, /goal, /goal --super, /super, /feature, /change, /fix, /tech, /deploy, /handoff, /roadmap, /plan, /status, /continue, and /upgrade. Includes frontend design direction, UI style reference collection, design keywords, and frontend design documentation updates.
 ---
 
 # Super
@@ -33,19 +33,19 @@ Command behavior:
 
 - `/init`: initialize missing docs if needed, restate the project goal, ask clarification questions, then prepare the initial docs. Do not implement before confirmation.
 - `/goal`: use Codex Goal mode when available, or emulate goal-mode execution otherwise. Create/enter a long-running objective, initialize or continue the project docs as needed, break the goal into phases/tasks, then autonomously progress through the workflow until completion, a required confirmation gate, or a real blocker.
-- `/goal --super`: high-autonomy variant of `/goal`. Do not stop for ordinary product/technical confirmations; choose the recommended path, continue implementation, and record key decisions in `docs/14-decision-log.md`. Still stop for paid services, production data deletion, secrets, destructive git operations, or clear security/compliance risks.
+- `/goal --super`: high-autonomy variant of `/goal`. Do not stop for ordinary product/technical confirmations; choose the recommended path, continue implementation, and record key decisions in `docs/development/14-decision-log.md`. Still stop for paid services, production data deletion, secrets, destructive git operations, or clear security/compliance risks.
 - `/super`: compatibility alias for `/goal --super`.
 - `/feature`: treat as a mid-project new feature. Clarify if needed, update requirements/roadmap/tech docs as relevant, implement after confirmation when direction matters, then update the changelog.
 - `/change`: treat as a behavior or scope change. Identify affected docs and code before implementation.
 - `/fix`: reproduce or reason about the defect, keep the docs update lightweight, and update the changelog after the fix if behavior changes.
-- `/tech`: update `docs/04-tech-decisions.md` before or alongside any implementation.
-- `/deploy`: update `docs/08-deployment.md`, and update `docs/07-local-development.md` if local commands or env vars change.
-- `/handoff`: update `docs/05-handoff-guide.md`.
-- `/roadmap`: update `docs/06-roadmap.md`.
+- `/tech`: update `docs/engineering/04-tech-decisions.md` before or alongside any implementation.
+- `/deploy`: update `docs/operations/08-deployment.md`, and update `docs/operations/07-local-development.md` if local commands or env vars change.
+- `/handoff`: update `docs/handoff/05-handoff-guide.md`.
+- `/roadmap`: update `docs/product/06-roadmap.md`.
 - `/plan`: when the user has no clear next step or asks what to add/improve, read existing docs, recommend feature/optimization directions with value, complexity, priority, dependencies, and risks, then wait for the user to choose. Do not implement directly.
-- `/status`: inspect the current workspace, recent changes, docs, tests, and known pending work; update `docs/10-current-status.md` with a concise handoff-ready snapshot. Do not implement new work unless the user explicitly asks.
-- `/continue`: read `AI_DEVELOPMENT_RULES.md`, `docs/00_START_HERE.md`, `docs/10-current-status.md`, `docs/03-feature-changelog.md`, `docs/06-roadmap.md`, and `docs/05-handoff-guide.md`; summarize current state and continue only after identifying the next safe task.
-- `/upgrade`: if the user asks to update local skills, run `scripts/update_installed_skills.py` to download the latest GitHub package and update `~/.agents/skills`; otherwise copy only missing project template docs, preserve existing content, update `docs/12-upgrade-history.md`, and then update `docs/10-current-status.md`.
+- `/status`: inspect the current workspace, recent changes, docs, tests, and known pending work; update `docs/development/10-current-status.md` with a concise handoff-ready snapshot. Do not implement new work unless the user explicitly asks.
+- `/continue`: read `AI_DEVELOPMENT_RULES.md`, `docs/00_START_HERE.md`, `docs/development/10-current-status.md`, `docs/development/03-feature-changelog.md`, `docs/product/06-roadmap.md`, and `docs/handoff/05-handoff-guide.md`; summarize current state and continue only after identifying the next safe task.
+- `/upgrade`: if the user asks to update local skills, run `scripts/update_installed_skills.py` to download the latest GitHub package and update `~/.agents/skills`; otherwise copy only missing project template docs, preserve existing content, update `docs/maintenance/12-upgrade-history.md`, and then update `docs/development/10-current-status.md`.
 
 If the user omits the skill name but starts with one of these prefixes, apply this skill.
 
@@ -58,7 +58,7 @@ For a new project:
 3. Read `AI_DEVELOPMENT_RULES.md` and `docs/00_START_HERE.md` after initialization.
 4. Restate the user's project goal in plain language.
 5. Ask only the clarification questions that affect product scope, architecture, data, permissions, deployment, frontend design direction, or acceptance.
-6. If the project has any user interface, identify whether it is a website, mini program, browser extension, app, desktop app, internal tool, admin system, dashboard, or other surface; collect or recommend 2-5 UI style references; then extract overall mood, colors, layout, card/component style, interaction states, and things to avoid into `docs/15-frontend-design.md`.
+6. If the project has any user interface, identify whether it is a website, mini program, browser extension, app, desktop app, internal tool, admin system, dashboard, or other surface; collect or recommend 2-5 UI style references; then extract overall mood, colors, layout, card/component style, interaction states, and things to avoid into `docs/product/15-frontend-design.md`.
 7. After the user confirms, fill or update the docs under `docs/`.
 8. Do not start implementation until the requirements and initial docs are confirmed.
 
@@ -69,8 +69,8 @@ For mid-project new requirements:
 3. Restate the requirement briefly.
 4. Ask clarification questions only if the request affects scope, business rules, data shape, permissions, technical decisions, deployment, or acceptance.
 5. Update the relevant docs before or alongside code changes.
-6. Always update `docs/03-feature-changelog.md` after a feature, change, deletion, or fix.
-7. Update `docs/15-frontend-design.md` when the request affects product surface, UI style, layout, component strategy, interaction states, or frontend experience boundaries.
+6. Always update `docs/development/03-feature-changelog.md` after a feature, change, deletion, or fix.
+7. Update `docs/product/15-frontend-design.md` when the request affects product surface, UI style, layout, component strategy, interaction states, or frontend experience boundaries.
 8. Final response must include page-level manual test steps when the change affects user-visible UI or browser workflows.
 
 For technical choices:
@@ -79,12 +79,12 @@ For technical choices:
 2. Present 2-3 viable options with purpose, pros, cons, performance impact, cost, maintenance complexity, risks, and rollback.
 3. Recommend one option and explain why.
 4. Wait for user confirmation unless the user explicitly specified the technology and explicitly waived comparison.
-5. After confirmation, record the decision in `docs/04-tech-decisions.md`, then implement.
+5. After confirmation, record the decision in `docs/engineering/04-tech-decisions.md`, then implement.
 
 For open-ended planning:
 
 1. Trigger this flow when the user writes `/plan` or says they have no idea what to add, asks what to do next, asks how to improve the project, or wants feature recommendations.
-2. Read `docs/01-requirements-clarification.md`, `docs/03-feature-changelog.md`, `docs/06-roadmap.md`, `docs/10-current-status.md`, and `docs/11-project-structure.md`.
+2. Read `docs/product/01-requirements-clarification.md`, `docs/development/03-feature-changelog.md`, `docs/product/06-roadmap.md`, `docs/development/10-current-status.md`, and `docs/engineering/11-project-structure.md`.
 3. Identify the current project phase and whether the core user journey is complete.
 4. Recommend 3-7 candidate directions across core workflow gaps, UX polish, admin/permissions/audit, performance, security, deployment/observability, data/reporting, and operations/commercialization when relevant.
 5. For each candidate, include user value, priority, implementation complexity, dependencies, performance/security/deployment impact, and whether a technical-selection gate may be needed.
@@ -99,7 +99,7 @@ For goal-mode automatic execution:
 4. If the project is already initialized, run the `/continue` workflow first: read project rules, current status, roadmap, changelog, handoff, project structure, command reference, and technical decisions.
 5. Break the goal into phases and immediate tasks, then keep progressing without requiring the user to type `/feature`, `/status`, or `/continue`.
 6. Apply the same gates internally: use `/plan` behavior when the next step is unclear, `/tech` behavior for major technical selections, `/feature` or `/change` behavior for implementation tasks, `/fix` behavior for defects, and `/deploy` behavior for deployment work.
-7. Update relevant docs after each meaningful unit of work, especially `docs/03-feature-changelog.md`, `docs/06-roadmap.md`, `docs/10-current-status.md`, and `docs/11-project-structure.md`.
+7. Update relevant docs after each meaningful unit of work, especially `docs/development/03-feature-changelog.md`, `docs/product/06-roadmap.md`, `docs/development/10-current-status.md`, and `docs/engineering/11-project-structure.md`.
 8. Stop and ask the user only for required decisions: product boundary ambiguity, major technology selection, paid/external services, production deployment, security/permission/data deletion/compliance risk, or an actual blocker.
 9. Low-risk implementation details may be decided autonomously and recorded in the relevant docs.
 10. When the goal is genuinely achieved, mark the Goal complete if the environment provides a goal status tool; otherwise summarize completion and remaining risks.
@@ -108,7 +108,7 @@ For super high-autonomy execution:
 
 1. Trigger this flow when the user writes `/goal --super`, uses `/super`, or explicitly says to proceed without asking ordinary confirmation questions.
 2. Enter `/goal` behavior, but treat ordinary technical/product choices as AI-owned decisions.
-3. For major choices, still compare options internally, select the best fit, implement it, and record the decision in `docs/14-decision-log.md`.
+3. For major choices, still compare options internally, select the best fit, implement it, and record the decision in `docs/development/14-decision-log.md`.
 4. Continue without waiting for user confirmation unless the decision involves paid services, production data deletion, secrets, destructive git operations, or clear security/compliance risk.
 5. Final responses must summarize the important decisions made, why they were made, risks, rollback options, validation, and page manual test steps when UI is affected.
 
@@ -118,22 +118,22 @@ The project documentation set is:
 
 - `AI_DEVELOPMENT_RULES.md`: durable AI development rules.
 - `docs/00_START_HERE.md`: kickoff and mid-project requirement workflow.
-- `docs/README.md`: document index and file-level classification.
-- `docs/01-requirements-clarification.md`: project goals, users, flows, data, acceptance, open questions.
-- `docs/02-development-principles.md`: project-specific product, tech, UI, API, data, security, and quality rules.
-- `docs/03-feature-changelog.md`: feature/change/fix history.
-- `docs/04-tech-decisions.md`: technical decisions with purpose, reasons, alternatives, tradeoffs, and impact.
-- `docs/05-handoff-guide.md`: how future developers or AI agents should enter the project.
-- `docs/06-roadmap.md`: phase roadmap, MVP scope, enhancement phase, launch readiness.
-- `docs/07-local-development.md`: local setup, environment variables, commands, debugging, common issues.
-- `docs/08-deployment.md`: build, deploy, environment, verification, migration, rollback, operations.
-- `docs/09-ai-project-start-prompt.md`: optional first-message prompt for tools that do not automatically use skills.
-- `docs/10-current-status.md`: current progress snapshot for cross-chat continuation and handoff.
-- `docs/11-project-structure.md`: project directory map, module responsibilities, key files, data/request flow, and file placement rules.
-- `docs/12-upgrade-history.md`: Skill/template upgrade history and migration notes for previously initialized projects.
-- `docs/13-command-reference.md`: command list, use cases, effects, and docs each command updates.
-- `docs/14-decision-log.md`: key decision log, especially for `/super` mode where AI proceeds without ordinary confirmations.
-- `docs/15-frontend-design.md`: product surface, UI references, design keywords, color, layout, card/component style, interaction states, and frontend pitfalls to avoid.
+- `docs/README.md`: document index and parent-folder classification.
+- `docs/product/01-requirements-clarification.md`: project goals, users, flows, data, acceptance, open questions.
+- `docs/engineering/02-development-principles.md`: project-specific product, tech, UI, API, data, security, and quality rules.
+- `docs/development/03-feature-changelog.md`: feature/change/fix history.
+- `docs/engineering/04-tech-decisions.md`: technical decisions with purpose, reasons, alternatives, tradeoffs, and impact.
+- `docs/handoff/05-handoff-guide.md`: how future developers or AI agents should enter the project.
+- `docs/product/06-roadmap.md`: phase roadmap, MVP scope, enhancement phase, launch readiness.
+- `docs/operations/07-local-development.md`: local setup, environment variables, commands, debugging, common issues.
+- `docs/operations/08-deployment.md`: build, deploy, environment, verification, migration, rollback, operations.
+- `docs/maintenance/09-ai-project-start-prompt.md`: optional first-message prompt for tools that do not automatically use skills.
+- `docs/development/10-current-status.md`: current progress snapshot for cross-chat continuation and handoff.
+- `docs/engineering/11-project-structure.md`: project directory map, module responsibilities, key files, data/request flow, and file placement rules.
+- `docs/maintenance/12-upgrade-history.md`: Skill/template upgrade history and migration notes for previously initialized projects.
+- `docs/maintenance/13-command-reference.md`: command list, use cases, effects, and docs each command updates.
+- `docs/development/14-decision-log.md`: key decision log, especially for `/super` mode where AI proceeds without ordinary confirmations.
+- `docs/product/15-frontend-design.md`: product surface, UI references, design keywords, color, layout, card/component style, interaction states, and frontend pitfalls to avoid.
 
 ## Initialization Script
 
@@ -172,26 +172,26 @@ Behavior:
 
 - Copies only missing files from the current template.
 - Never overwrites existing project docs.
-- Appends an entry to `docs/12-upgrade-history.md`.
+- Appends an entry to `docs/maintenance/12-upgrade-history.md`.
 
 ## Documentation Update Rules
 
 When a user gives a new requirement, update docs according to impact:
 
-- Product scope, users, roles, workflows, acceptance: update `01-requirements-clarification.md`.
-- Project-specific coding, UI, API, data, security, or quality rules: update `02-development-principles.md`.
-- Any completed feature/change/fix: update `03-feature-changelog.md`.
-- New framework, library, service, architecture, database, auth, deployment strategy, or major tradeoff: update `04-tech-decisions.md`.
-- New handoff notes, important directories, common tasks, or pitfalls: update `05-handoff-guide.md`.
-- Phase scope, priority, MVP boundary, launch readiness: update `06-roadmap.md`.
-- Local commands, env vars, database setup, debug steps: update `07-local-development.md`.
-- Build, deploy, env, migration, verification, rollback, ops: update `08-deployment.md`.
-- Conversation switch, pause, handoff, current task, recent file changes, verification state, pending work: update `10-current-status.md`.
-- Directory layout, module boundaries, key file responsibilities, request/data flow, placement rules: update `11-project-structure.md`.
-- Template or rule upgrades, newly added docs, manual merge notes: update `12-upgrade-history.md`.
-- Command additions, removals, or behavior changes: update `13-command-reference.md`.
-- High-autonomy decisions, skipped confirmation gates, major technical/product choices: update `14-decision-log.md`.
-- Product surface, UI style references, design keywords, color/layout/component strategy, interaction states, frontend pitfalls: update `15-frontend-design.md`.
+- Product scope, users, roles, workflows, acceptance: update `product/01-requirements-clarification.md`.
+- Project-specific coding, UI, API, data, security, or quality rules: update `engineering/02-development-principles.md`.
+- Any completed feature/change/fix: update `development/03-feature-changelog.md`.
+- New framework, library, service, architecture, database, auth, deployment strategy, or major tradeoff: update `engineering/04-tech-decisions.md`.
+- New handoff notes, important directories, common tasks, or pitfalls: update `handoff/05-handoff-guide.md`.
+- Phase scope, priority, MVP boundary, launch readiness: update `product/06-roadmap.md`.
+- Local commands, env vars, database setup, debug steps: update `operations/07-local-development.md`.
+- Build, deploy, env, migration, verification, rollback, ops: update `operations/08-deployment.md`.
+- Conversation switch, pause, handoff, current task, recent file changes, verification state, pending work: update `development/10-current-status.md`.
+- Directory layout, module boundaries, key file responsibilities, request/data flow, placement rules: update `engineering/11-project-structure.md`.
+- Template or rule upgrades, newly added docs, manual merge notes: update `maintenance/12-upgrade-history.md`.
+- Command additions, removals, or behavior changes: update `maintenance/13-command-reference.md`.
+- High-autonomy decisions, skipped confirmation gates, major technical/product choices: update `development/14-decision-log.md`.
+- Product surface, UI style references, design keywords, color/layout/component strategy, interaction states, frontend pitfalls: update `product/15-frontend-design.md`.
 
 ## Performance-Aware Design
 
@@ -202,7 +202,7 @@ During clarification, technical decisions, and implementation planning, consider
 3. For lists, logs, tables, messages, and large datasets, consider pagination, virtualization, filtering, and incremental loading.
 4. For backend work, consider query shape, indexes, pagination, caching, batching, connection reuse, timeouts, and avoiding N+1 queries.
 5. For APIs, avoid oversized responses and request waterfalls; document defaults and limits.
-6. Record meaningful performance tradeoffs in `docs/04-tech-decisions.md`.
+6. Record meaningful performance tradeoffs in `docs/engineering/04-tech-decisions.md`.
 
 ## Technical Selection Gate
 
@@ -238,7 +238,7 @@ Do not proceed to implementation until the user confirms the selected option.
 When handling `/status`:
 
 1. Inspect relevant docs and, if available, git status/recent changed files.
-2. Record the current phase, current task, completed work, in-progress work, pending next steps, blockers, recent file changes, verification run, verification not run, and continuation advice in `docs/10-current-status.md`.
+2. Record the current phase, current task, completed work, in-progress work, pending next steps, blockers, recent file changes, verification run, verification not run, and continuation advice in `docs/development/10-current-status.md`.
 3. Keep the snapshot factual. Do not claim tests ran unless they actually ran.
 4. Final response should tell the user that the status snapshot was updated and what the next recommended step is.
 
@@ -246,7 +246,7 @@ When handling `/continue`:
 
 1. Read the current status doc first.
 2. Read the minimum supporting docs needed to avoid guessing: usually `00_START_HERE`, `03-feature-changelog`, `06-roadmap`, `05-handoff-guide`, and `13-command-reference`.
-3. Read `AI_DEVELOPMENT_RULES.md` and `docs/04-tech-decisions.md` before making implementation or technology choices.
+3. Read `AI_DEVELOPMENT_RULES.md` and `docs/engineering/04-tech-decisions.md` before making implementation or technology choices.
 4. Inspect the workspace for current files and uncommitted changes before editing.
 5. Briefly summarize where the project left off.
 6. Continue with the next task only if it is clear; otherwise ask the smallest necessary clarification question.
@@ -257,7 +257,7 @@ When handling `/upgrade`:
 1. Classify the request first.
 2. If the user asks to update local skills, commands, this skill package, or the latest GitHub version, run `scripts/update_installed_skills.py`. Use `--dry-run` first when the user asks to preview only.
 3. If the user asks to upgrade an initialized project, run `scripts/upgrade_project_docs.py <project-root>` or manually apply the same behavior.
-4. For project docs upgrades, never overwrite existing project docs; read the list of new files, summarize what was added, propose/apply additive merges for new rules, and update `docs/10-current-status.md`.
+4. For project docs upgrades, never overwrite existing project docs; read the list of new files, summarize what was added, propose/apply additive merges for new rules, and update `docs/development/10-current-status.md`.
 5. For local skill package updates, summarize the downloaded repository/branch, target install path, backup path if created, installed commands, and tell the user to restart Codex desktop.
 
 When handling `/goal`:
@@ -272,7 +272,7 @@ When handling `/goal --super` or `/super`:
 
 1. Create or enter a long-running objective if Goal tooling is available.
 2. Apply `/goal` behavior without stopping for ordinary confirmations.
-3. Record key decisions in `docs/14-decision-log.md`.
+3. Record key decisions in `docs/development/14-decision-log.md`.
 4. Stop only for paid/external service activation, production data deletion, secrets, destructive git operations, or clear security/compliance risk.
 
 ## Interaction Rules
@@ -299,5 +299,3 @@ When work affects a page, interaction, visible data, form, navigation, or browse
 ```
 
 Keep the steps practical and executable by the user in the browser. Include at least one happy path and, when relevant, one or two boundary/error checks. Do not replace page steps with only command-line test output.
-
-

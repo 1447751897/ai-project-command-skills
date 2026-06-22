@@ -6,15 +6,15 @@
 
 ## 开发注意事项
 
-- 命令行为需要同时写在 skill 指令里，以及内置项目模板的 `docs/13-command-reference.md` 中。
+- 命令行为需要同时写在 skill 指令里，以及内置项目模板的 `docs/maintenance/13-command-reference.md` 中。
 - 如果新增项目文档模板，请同步更新：
   - `docs/00_START_HERE.md`
   - `docs/README.md`
-  - `docs/09-ai-project-start-prompt.md`
-  - `docs/13-command-reference.md`
+  - `docs/maintenance/09-ai-project-start-prompt.md`
+  - `docs/maintenance/13-command-reference.md`
   - 顶层 `README.md` 和 `README.zh-CN.md`
-  - 如有必要，更新 `docs/12-upgrade-history.md` 的预期说明
-- 如果修改技术决策行为，请同步更新 `docs/04-tech-decisions.md`，必要时也更新 `docs/14-decision-log.md`。
+  - 如有必要，更新 `docs/maintenance/12-upgrade-history.md` 的预期说明
+- 如果修改技术决策行为，请同步更新 `docs/engineering/04-tech-decisions.md`，必要时也更新 `docs/development/14-decision-log.md`。
 - 如果修改 Codex 可安装命令名称，请同时更新 `install.ps1` 和 `install.sh`。
 - 如果新增或重命名 workflow skill，请保持 `skills/` 和 `claude-skills/` 同步。Claude Code 别名应保留 `ai-` 前缀。
 - 如果修改 Claude Code 命令名称，请同时更新 `install-claude.ps1` 和 `install-claude.sh`。

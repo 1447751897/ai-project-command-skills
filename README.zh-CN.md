@@ -182,24 +182,30 @@ AI_DEVELOPMENT_RULES.md
 docs/
   00_START_HERE.md
   README.md
-  01-requirements-clarification.md
-  02-development-principles.md
-  03-feature-changelog.md
-  04-tech-decisions.md
-  05-handoff-guide.md
-  06-roadmap.md
-  07-local-development.md
-  08-deployment.md
-  09-ai-project-start-prompt.md
-  10-current-status.md
-  11-project-structure.md
-  12-upgrade-history.md
-  13-command-reference.md
-  14-decision-log.md
-  15-frontend-design.md
+  product/
+    01-requirements-clarification.md
+    06-roadmap.md
+    15-frontend-design.md
+  engineering/
+    02-development-principles.md
+    04-tech-decisions.md
+    11-project-structure.md
+  development/
+    03-feature-changelog.md
+    10-current-status.md
+    14-decision-log.md
+  operations/
+    07-local-development.md
+    08-deployment.md
+  handoff/
+    05-handoff-guide.md
+  maintenance/
+    09-ai-project-start-prompt.md
+    12-upgrade-history.md
+    13-command-reference.md
 ```
 
-这些文件是项目的连续性层。它们能让另一个对话、另一个 AI 助手或另一个开发者理解已经做过的决策，以及后面还要做什么。`docs/README.md` 会在不拆分父文件夹的前提下做文件级分类，`docs/15-frontend-design.md` 用来记录产品形态、UI 风格参考、设计关键词、色彩、布局、组件风格、交互状态和需要避免的问题。
+这些文件是项目的连续性层。它们能让另一个对话、另一个 AI 助手或另一个开发者理解已经做过的决策，以及后面还要做什么。`docs/README.md` 会保留少量根入口，并把其余文档按父文件夹分类。`docs/product/15-frontend-design.md` 用来记录产品形态、UI 风格参考、设计关键词、色彩、布局、组件风格、交互状态和需要避免的问题。
 
 ## 设计原则
 
@@ -208,11 +214,11 @@ docs/
 - 重要技术选型默认需要给出方案对比和确认。
 - `--super` 会跳过普通确认，但必须记录重要决策。
 - 涉及页面的工作，结束时必须给出手工浏览器测试步骤。
-- 涉及界面的项目，初始化阶段必须先收集或推荐 UI 风格参考，并写入 `docs/15-frontend-design.md`。
-- 跨对话连续性通过 `docs/10-current-status.md` 保存。
-- 项目结构知识写入 `docs/11-project-structure.md`。
-- 命令语义写入 `docs/13-command-reference.md`。
-- 高自治决策写入 `docs/14-decision-log.md`。
+- 涉及界面的项目，初始化阶段必须先收集或推荐 UI 风格参考，并写入 `docs/product/15-frontend-design.md`。
+- 跨对话连续性通过 `docs/development/10-current-status.md` 保存。
+- 项目结构知识写入 `docs/engineering/11-project-structure.md`。
+- 命令语义写入 `docs/maintenance/13-command-reference.md`。
+- 高自治决策写入 `docs/development/14-decision-log.md`。
 
 ## 仓库结构
 

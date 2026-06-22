@@ -182,24 +182,30 @@ AI_DEVELOPMENT_RULES.md
 docs/
   00_START_HERE.md
   README.md
-  01-requirements-clarification.md
-  02-development-principles.md
-  03-feature-changelog.md
-  04-tech-decisions.md
-  05-handoff-guide.md
-  06-roadmap.md
-  07-local-development.md
-  08-deployment.md
-  09-ai-project-start-prompt.md
-  10-current-status.md
-  11-project-structure.md
-  12-upgrade-history.md
-  13-command-reference.md
-  14-decision-log.md
-  15-frontend-design.md
+  product/
+    01-requirements-clarification.md
+    06-roadmap.md
+    15-frontend-design.md
+  engineering/
+    02-development-principles.md
+    04-tech-decisions.md
+    11-project-structure.md
+  development/
+    03-feature-changelog.md
+    10-current-status.md
+    14-decision-log.md
+  operations/
+    07-local-development.md
+    08-deployment.md
+  handoff/
+    05-handoff-guide.md
+  maintenance/
+    09-ai-project-start-prompt.md
+    12-upgrade-history.md
+    13-command-reference.md
 ```
 
-These files are the continuity layer. They let another chat, another AI assistant, or another developer understand what has been decided and what remains. `docs/README.md` keeps the docs in a flat directory while grouping them by file-level category, and `docs/15-frontend-design.md` captures product surface, UI references, design keywords, colors, layout, component style, interaction states, and frontend pitfalls.
+These files are the continuity layer. They let another chat, another AI assistant, or another developer understand what has been decided and what remains. `docs/README.md` keeps the root entry points small and groups the rest of the docs into parent folders. `docs/product/15-frontend-design.md` captures product surface, UI references, design keywords, colors, layout, component style, interaction states, and frontend pitfalls.
 
 ## Design Principles
 
@@ -208,11 +214,11 @@ These files are the continuity layer. They let another chat, another AI assistan
 - Technical choices normally require options and confirmation.
 - `--super` skips ordinary confirmation but records important decisions.
 - Page-facing work must end with manual browser test steps.
-- UI projects start by collecting or recommending UI style references and recording the design direction in `docs/15-frontend-design.md`.
-- Cross-chat continuity goes through `docs/10-current-status.md`.
-- Project structure knowledge goes into `docs/11-project-structure.md`.
-- Command semantics are documented in `docs/13-command-reference.md`.
-- High-autonomy decisions are recorded in `docs/14-decision-log.md`.
+- UI projects start by collecting or recommending UI style references and recording the design direction in `docs/product/15-frontend-design.md`.
+- Cross-chat continuity goes through `docs/development/10-current-status.md`.
+- Project structure knowledge goes into `docs/engineering/11-project-structure.md`.
+- Command semantics are documented in `docs/maintenance/13-command-reference.md`.
+- High-autonomy decisions are recorded in `docs/development/14-decision-log.md`.
 
 ## Repository Layout
 

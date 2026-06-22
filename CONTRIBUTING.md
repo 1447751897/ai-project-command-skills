@@ -6,15 +6,15 @@ Thanks for improving AI Project Command Skills.
 
 ## Development Notes
 
-- Keep command behavior documented in the skill instructions and in `docs/13-command-reference.md` inside the bundled project template.
+- Keep command behavior documented in the skill instructions and in `docs/maintenance/13-command-reference.md` inside the bundled project template.
 - If you add a new project document template, update:
   - `docs/00_START_HERE.md`
   - `docs/README.md`
-  - `docs/09-ai-project-start-prompt.md`
-  - `docs/13-command-reference.md`
+  - `docs/maintenance/09-ai-project-start-prompt.md`
+  - `docs/maintenance/13-command-reference.md`
   - top-level `README.md` and `README.zh-CN.md`
-  - `docs/12-upgrade-history.md` expectations if needed
-- If you change technical decision behavior, update `docs/04-tech-decisions.md` and `docs/14-decision-log.md` if relevant.
+  - `docs/maintenance/12-upgrade-history.md` expectations if needed
+- If you change technical decision behavior, update `docs/engineering/04-tech-decisions.md` and `docs/development/14-decision-log.md` if relevant.
 - If you change installable Codex command names, update both `install.ps1` and `install.sh`.
 - If you add or rename workflow skills, keep `skills/` and `claude-skills/` in sync. Claude Code aliases should keep the `ai-` prefix.
 - If you change Claude Code command names, update both `install-claude.ps1` and `install-claude.sh`.
