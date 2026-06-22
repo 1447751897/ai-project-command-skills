@@ -98,6 +98,15 @@ def find_package_root(extract_root: Path, required_source_dir: str) -> Path:
     raise SystemExit(f"Downloaded package does not contain a {required_source_dir} directory.")
 
 
+def discover_skills(skills_root: Path) -> list[str]:
+    """Discover all skill directories (containing SKILL.md) in the downloaded package."""
+    found = []
+    for child in sorted(skills_root.iterdir()):
+        if child.is_dir() and (child / "SKILL.md").is_file():
+            found.append(child.name)
+    return found
+
+
 def validate_skills(skills_root: Path, skill_names: list[str]) -> list[str]:
     available: list[str] = []
     missing: list[str] = []
@@ -240,7 +249,10 @@ def main() -> int:
             rename_upstream_to_local(skills_root)
             replace_prefix_in_files(skills_root)
 
-        skill_names = validate_skills(skills_root, expected_names)
+        # Discover all available skills from the downloaded package (auto-detect new ones)
+        skill_names = discover_skills(skills_root)
+        if not skill_names:
+            raise SystemExit("Downloaded package contains no valid skill directories.")
 
         print(f"Tool: {args.tool}")
         print(f"Package root: {package_root}")
