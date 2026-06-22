@@ -1,4 +1,4 @@
-# Command Reference
+﻿# Command Reference
 
 本文档说明本项目可使用的 AI 开发命令、适用场景和会更新的文档。新成员、后续 AI 助手或切换对话时，应先了解这些命令。
 
@@ -24,6 +24,7 @@
 文档编号说明：
 
 ```text
+README = docs/README.md
 01 = docs/01-requirements-clarification.md
 03 = docs/03-feature-changelog.md
 04 = docs/04-tech-decisions.md
@@ -34,6 +35,7 @@
 10 = docs/10-current-status.md
 11 = docs/11-project-structure.md
 12 = docs/12-upgrade-history.md
+15 = docs/15-frontend-design.md
 ```
 
 ## 2. 推荐使用流程
@@ -135,6 +137,8 @@
 8. 完成需求开发后，最终回复必须给出可直接在页面上验证的手动测试步骤；不涉及页面时说明替代验证方式。
 9. 当用户想要“给一个目标后自动推进”，优先使用 `/ai-goal`。`/ai-goal` 会尽量自动推进，但不能绕过技术选型确认、需求关键澄清和安全/数据/部署等高风险门禁。
 10. 当用户使用 `/ai-goal --super` 时，AI 可以跳过默认确认门禁，自主选择方案并继续推进，但必须记录关键决策过程、风险和回退方式。
+11. 新项目涉及界面时，`/ai-init` 必须先收集或推荐 UI 风格参考，并在 `docs/15-frontend-design.md` 中记录产品形态、设计关键词、色彩、布局、组件风格、交互状态和需要避免的问题。
+12. 后续需求如果影响产品形态、UI 风格、布局、组件策略或交互状态，必须反向更新 `docs/15-frontend-design.md`。
 
 ## 5. 完成后的页面测试步骤
 

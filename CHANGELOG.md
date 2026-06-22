@@ -2,6 +2,15 @@
 
 [简体中文](CHANGELOG.zh-CN.md) | English
 
+## 0.2.1 - 2026-06-22
+
+Frontend design initialization and file-level doc classification.
+
+- Added `docs/15-frontend-design.md` to the initialized project template.
+- `/init` now collects or recommends UI style references for UI-facing projects and records design keywords, colors, layout, component style, interaction states, and pitfalls to avoid.
+- Added file-level document classification to the generated `docs/README.md` while keeping the flat `docs/` structure.
+- Updated Codex and Claude Code skill templates so frontend design changes are tracked during later feature/change work.
+
 ## 0.2.0 - 2026-06-18
 
 Claude Code compatibility.

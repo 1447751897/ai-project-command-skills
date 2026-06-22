@@ -181,6 +181,7 @@ When initialized, projects receive a document set like:
 AI_DEVELOPMENT_RULES.md
 docs/
   00_START_HERE.md
+  README.md
   01-requirements-clarification.md
   02-development-principles.md
   03-feature-changelog.md
@@ -195,9 +196,10 @@ docs/
   12-upgrade-history.md
   13-command-reference.md
   14-decision-log.md
+  15-frontend-design.md
 ```
 
-These files are the continuity layer. They let another chat, another AI assistant, or another developer understand what has been decided and what remains.
+These files are the continuity layer. They let another chat, another AI assistant, or another developer understand what has been decided and what remains. `docs/README.md` keeps the docs in a flat directory while grouping them by file-level category, and `docs/15-frontend-design.md` captures product surface, UI references, design keywords, colors, layout, component style, interaction states, and frontend pitfalls.
 
 ## Design Principles
 
@@ -206,6 +208,7 @@ These files are the continuity layer. They let another chat, another AI assistan
 - Technical choices normally require options and confirmation.
 - `--super` skips ordinary confirmation but records important decisions.
 - Page-facing work must end with manual browser test steps.
+- UI projects start by collecting or recommending UI style references and recording the design direction in `docs/15-frontend-design.md`.
 - Cross-chat continuity goes through `docs/10-current-status.md`.
 - Project structure knowledge goes into `docs/11-project-structure.md`.
 - Command semantics are documented in `docs/13-command-reference.md`.

@@ -11,6 +11,8 @@
   - `docs/00_START_HERE.md`
   - `docs/README.md`
   - `docs/09-ai-project-start-prompt.md`
+  - `docs/13-command-reference.md`
+  - 顶层 `README.md` 和 `README.zh-CN.md`
   - 如有必要，更新 `docs/12-upgrade-history.md` 的预期说明
 - 如果修改技术决策行为，请同步更新 `docs/04-tech-decisions.md`，必要时也更新 `docs/14-decision-log.md`。
 - 如果修改 Codex 可安装命令名称，请同时更新 `install.ps1` 和 `install.sh`。

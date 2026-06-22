@@ -1,9 +1,9 @@
 ---
-name: project-kickoff-docs
-description: "Use when starting or continuing software projects with document-first workflow commands including /ai-init, /ai-goal, /ai-goal --super, /ai-super alias, /ai-feature, /ai-change, /ai-fix, /ai-tech, /ai-deploy, /ai-handoff, /ai-roadmap, /ai-plan, /ai-status, /ai-continue, and /ai-upgrade. Covers project docs, command reference, decision logs, goal/super execution, technical-selection gates, performance-aware design, page manual test steps, cross-chat continuation, and template upgrades."
+name: ai-project-kickoff-docs
+description: "Use when starting or continuing software projects with document-first workflow commands including /ai-init, /ai-goal, /ai-goal --super, /ai-super alias, /ai-feature, /ai-change, /ai-fix, /ai-tech, /ai-deploy, /ai-handoff, /ai-roadmap, /ai-plan, /ai-status, /ai-continue, and /ai-upgrade. Covers project docs, command reference, decision logs, goal/super execution, technical-selection gates, performance-aware design, page manual test steps, cross-chat continuation, and template upgrades. Includes frontend design direction, UI style reference collection, design keywords, and frontend design documentation updates."
 ---
 
-# Project Kickoff Docs
+# Ai-Project-Kickoff-Docs
 ## Claude Code Compatibility
 
 This is the Claude Code alias of the 'project-kickoff-docs' workflow skill. Use the '/ai-project-kickoff-docs' slash command in Claude Code. The 'ai-' prefix avoids collisions with Claude Code built-in commands such as '/init', '/plan', and '/upgrade' while preserving the same document-first workflow semantics.
@@ -61,9 +61,10 @@ For a new project:
 2. If the project lacks the required docs, run `scripts/init_project_docs.py <project-root>` to copy the template files.
 3. Read `AI_DEVELOPMENT_RULES.md` and `docs/00_START_HERE.md` after initialization.
 4. Restate the user's project goal in plain language.
-5. Ask only the clarification questions that affect product scope, architecture, data, permissions, deployment, or acceptance.
-6. After the user confirms, fill or update the docs under `docs/`.
-7. Do not start implementation until the requirements and initial docs are confirmed.
+5. Ask only the clarification questions that affect product scope, architecture, data, permissions, deployment, frontend design direction, or acceptance.
+6. If the project has any user interface, identify whether it is a website, mini program, browser extension, app, desktop app, internal tool, admin system, dashboard, or other surface; collect or recommend 2-5 UI style references; then extract overall mood, colors, layout, card/component style, interaction states, and things to avoid into `docs/15-frontend-design.md`.
+7. After the user confirms, fill or update the docs under `docs/`.
+8. Do not start implementation until the requirements and initial docs are confirmed.
 
 For mid-project new requirements:
 
@@ -73,7 +74,8 @@ For mid-project new requirements:
 4. Ask clarification questions only if the request affects scope, business rules, data shape, permissions, technical decisions, deployment, or acceptance.
 5. Update the relevant docs before or alongside code changes.
 6. Always update `docs/03-feature-changelog.md` after a feature, change, deletion, or fix.
-7. Final response must include page-level manual test steps when the change affects user-visible UI or browser workflows.
+7. Update `docs/15-frontend-design.md` when the request affects product surface, UI style, layout, component strategy, interaction states, or frontend experience boundaries.
+8. Final response must include page-level manual test steps when the change affects user-visible UI or browser workflows.
 
 For technical choices:
 
@@ -120,6 +122,7 @@ The project documentation set is:
 
 - `AI_DEVELOPMENT_RULES.md`: durable AI development rules.
 - `docs/00_START_HERE.md`: kickoff and mid-project requirement workflow.
+- `docs/README.md`: document index and file-level classification.
 - `docs/01-requirements-clarification.md`: project goals, users, flows, data, acceptance, open questions.
 - `docs/02-development-principles.md`: project-specific product, tech, UI, API, data, security, and quality rules.
 - `docs/03-feature-changelog.md`: feature/change/fix history.
@@ -134,6 +137,7 @@ The project documentation set is:
 - `docs/12-upgrade-history.md`: Skill/template upgrade history and migration notes for previously initialized projects.
 - `docs/13-command-reference.md`: command list, use cases, effects, and docs each command updates.
 - `docs/14-decision-log.md`: key decision log, especially for `/ai-super` mode where AI proceeds without ordinary confirmations.
+- `docs/15-frontend-design.md`: product surface, UI references, design keywords, color, layout, card/component style, interaction states, and frontend pitfalls to avoid.
 
 ## Initialization Script
 
@@ -191,6 +195,7 @@ When a user gives a new requirement, update docs according to impact:
 - Template or rule upgrades, newly added docs, manual merge notes: update `12-upgrade-history.md`.
 - Command additions, removals, or behavior changes: update `13-command-reference.md`.
 - High-autonomy decisions, skipped confirmation gates, major technical/product choices: update `14-decision-log.md`.
+- Product surface, UI style references, design keywords, color/layout/component strategy, interaction states, frontend pitfalls: update `15-frontend-design.md`.
 
 ## Performance-Aware Design
 

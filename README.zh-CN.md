@@ -181,6 +181,7 @@ Claude Code 对应写法：
 AI_DEVELOPMENT_RULES.md
 docs/
   00_START_HERE.md
+  README.md
   01-requirements-clarification.md
   02-development-principles.md
   03-feature-changelog.md
@@ -195,9 +196,10 @@ docs/
   12-upgrade-history.md
   13-command-reference.md
   14-decision-log.md
+  15-frontend-design.md
 ```
 
-这些文件是项目的连续性层。它们能让另一个对话、另一个 AI 助手或另一个开发者理解已经做过的决策，以及后面还要做什么。
+这些文件是项目的连续性层。它们能让另一个对话、另一个 AI 助手或另一个开发者理解已经做过的决策，以及后面还要做什么。`docs/README.md` 会在不拆分父文件夹的前提下做文件级分类，`docs/15-frontend-design.md` 用来记录产品形态、UI 风格参考、设计关键词、色彩、布局、组件风格、交互状态和需要避免的问题。
 
 ## 设计原则
 
@@ -206,6 +208,7 @@ docs/
 - 重要技术选型默认需要给出方案对比和确认。
 - `--super` 会跳过普通确认，但必须记录重要决策。
 - 涉及页面的工作，结束时必须给出手工浏览器测试步骤。
+- 涉及界面的项目，初始化阶段必须先收集或推荐 UI 风格参考，并写入 `docs/15-frontend-design.md`。
 - 跨对话连续性通过 `docs/10-current-status.md` 保存。
 - 项目结构知识写入 `docs/11-project-structure.md`。
 - 命令语义写入 `docs/13-command-reference.md`。
