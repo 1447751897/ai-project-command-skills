@@ -1,277 +1,183 @@
 # AI Project Command Skills
 
-[简体中文](README.zh-CN.md) | English
+文档驱动的 AI 编程工作流技能包。覆盖从立项评估到复盘沉淀的完整项目生命周期，支持 Claude Code、Codex 等 AI 编程工具。
 
-Document-first workflow skills for AI coding assistants. The package supports both Codex and Claude Code, with commands for project kickoff, feature work, goal-mode execution, handoff, and cross-chat continuation.
+## 项目生命周期
 
-The skills help an AI coding assistant clarify requirements, maintain project docs, make technical decisions deliberately, and keep enough project state on disk for future chats or developers to continue.
+```
+/zno-evaluate  立项评估（值不值得做？）
+      |
+/zno-init      需求澄清 + 文档初始化 + 设计方向
+      |
+/zno-tech      技术选型门禁（2-3 方案对比）
+      |
+/zno-feature   迭代开发（TDD + 验证门禁）
+      |
+/zno-review    代码自审（5 维度）
+      |
+/zno-deploy    发布上线
+      |
+/zno-retro     复盘沉淀（踩坑 -> 写规则 -> 下个项目受益）
+```
 
-## Command Names
+## 命令一览
 
-Codex uses the original command names. Claude Code uses `zno-` prefixed aliases to avoid collisions with built-in Claude Code commands such as `/init`, `/plan`, and `/upgrade`.
+| 命令 | 用途 |
+| --- | --- |
+| /zno-evaluate | 立项评估：苏格拉底式提问验证项目价值，输出 做/不做/延期 |
+| /zno-init | 初始化项目：澄清需求、生成核心文档、确定设计方向和 token |
+| /zno-goal | 目标模式：自动串起所有步骤，只在关键节点停下确认 |
+| /zno-goal --super | 高自治模式：AI 全权决策并记录 |
+| /zno-feature | 新功能：TDD 流程 + 验证门禁 |
+| /zno-change | 行为变更：识别影响范围再实现 |
+| /zno-fix | 修 bug：复现、定位、修复、验证 |
+| /zno-tech | 技术选型：2-3 方案对比，用户确认后实现 |
+| /zno-deploy | 部署发布：环境/迁移/验证/回滚 |
+| /zno-review | 代码审查：安全/性能/错误处理/SOLID/项目规范 |
+| /zno-retro | 复盘：原计划 vs 实际，提炼可复用规则 |
+| /zno-plan | 功能推荐：不确定做什么时，给出 3-7 个方向 |
+| /zno-status | 状态快照：保存当前进度，方便续接 |
+| /zno-continue | 续接：新会话恢复上次状态继续开发 |
+| /zno-handoff | 交接：生成接手文档 |
+| /zno-roadmap | 路线图：调整优先级和里程碑 |
+| /zno-upgrade | 升级：拉取最新 skill 版本 |
 
-| Purpose | Codex | Claude Code |
-| --- | --- | --- |
-| Start a new project | `/init` | `/zno-init` |
-| Run a long project or phase objective | `/goal` | `/zno-goal` |
-| High-autonomy goal mode | `/goal --super` | `/zno-goal --super` |
-| High-autonomy alias | `/super` | `/zno-super` |
-| Add a new feature | `/feature` | `/zno-feature` |
-| Change existing behavior or rules | `/change` | `/zno-change` |
-| Diagnose and fix a bug | `/fix` | `/zno-fix` |
-| Compare technical options | `/tech` | `/zno-tech` |
-| Update deployment or release guidance | `/deploy` | `/zno-deploy` |
-| Update onboarding and handoff guidance | `/handoff` | `/zno-handoff` |
-| Update phases, milestones, and priorities | `/roadmap` | `/zno-roadmap` |
-| Recommend next features or improvements | `/plan` | `/zno-plan` |
-| Write a current progress snapshot | `/status` | `/zno-status` |
-| Resume work in a new chat | `/continue` | `/zno-continue` |
-| Update installed skills or project docs | `/upgrade` | `/zno-upgrade` |
+## 快速安装
 
-## One-Step Install Or Update
+### 一键安装（推荐）
 
-Use the auto installer when you want one script to configure everything it can find on the machine. It detects Codex and Claude Code, then installs or updates the matching skill packages.
+自动检测本机安装的 AI 工具并安装对应技能包：
 
-### Windows
+macOS/Linux:
+
+```bash
+git clone https://github.com/1447751897/ai-project-command-skills.git
+cd ai-project-command-skills
+chmod +x install-all.sh && ./install-all.sh
+```
+
+Windows:
 
 ```powershell
+git clone https://github.com/1447751897/ai-project-command-skills.git
+cd ai-project-command-skills
 powershell -ExecutionPolicy Bypass -File .\install-all.ps1
 ```
 
-### macOS/Linux
+### 仅安装到 Claude Code
 
 ```bash
-chmod +x ./install-all.sh
+chmod +x install-claude.sh && ./install-claude.sh
+```
+
+安装目标：`~/.claude/skills/zno-*/`
+
+### 仅安装到 Codex
+
+```bash
+chmod +x install.sh && ./install.sh
+```
+
+安装目标：`~/.agents/skills/zno-*/`
+
+### 安装后
+
+重启对应的 AI 工具，然后输入 `/zno-init` 开始使用。
+
+## 从旧版本升级（ai- 到 zno-）
+
+如果你之前安装的是 `ai-*` 前缀版本（v1.x），**不能用旧的 /ai-upgrade 升级**，需要重新安装一次：
+
+```bash
+git clone https://github.com/1447751897/ai-project-command-skills.git
+cd ai-project-command-skills
 ./install-all.sh
+
+# 删除旧的 ai-* 目录（可选）
+rm -rf ~/.claude/skills/ai-*
+rm -rf ~/.agents/skills/ai-*
 ```
 
-Install from the latest GitHub package without cloning the full repo:
+重装后，后续用 `/zno-upgrade` 即可正常增量更新。
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\install-all.ps1 -Source github
+## 核心设计理念
+
+1. **文档驱动** — 先澄清需求、写文档，确认后才写代码
+2. **渐进生成** — /zno-init 只建必要文件，其余按需触发时才创建
+3. **质量内建** — TDD 流程 + 验证门禁 + 代码自审，不是事后补
+4. **设计 Token 约束** — 前端颜色/间距/圆角必须引用 token，禁止硬写入 AI_DEVELOPMENT_RULES.md，下个项目自动遵守
+6. **跨会话续接** — /zno-status 保存、/zno-continue 恢复，不怕断
+
+## 项目文档结构
+
+`/zno-init` 后生成的核心文档（渐进式，按需补充）：
+
 ```
-
-```bash
-./install-all.sh --source github
-```
-
-Force installation for both tools even if auto-detection does not find them:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\install-all.ps1 -Tool all
-```
-
-```bash
-./install-all.sh --tool all
-```
-
-Preview changes without writing local skills:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\install-all.ps1 -Source github -DryRun
-```
-
-```bash
-./install-all.sh --source github --dry-run
-```
-
-## Install For Codex Only
-
-Clone this repository or download the source zip, then run the installer from the repository root.
-
-### Windows
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\install.ps1
-```
-
-### macOS/Linux
-
-```bash
-chmod +x ./install.sh
-./install.sh
-```
-
-The Codex installer copies skills into:
-
-```text
-~/.agents/skills
-```
-
-Restart Codex desktop after installation so the command menu can rescan the skills.
-
-## Install For Claude Code Only
-
-### Windows
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\install-claude.ps1
-```
-
-### macOS/Linux
-
-```bash
-chmod +x ./install-claude.sh
-./install-claude.sh
-```
-
-The Claude Code installer copies alias skills into:
-
-```text
-~/.claude/skills
-```
-
-Restart Claude Code after installation so it can rescan the skills. Use `/zno-init`, `/zno-goal`, `/zno-feature`, and the other `zno-` commands in Claude Code.
-
-## Typical Usage
-
-Start a new project:
-
-```text
-/init Build a team task management app with login, projects, kanban tasks, member invites, basic permissions, local setup, and deployment docs.
-```
-
-Claude Code equivalent:
-
-```text
-/zno-init Build a team task management app with login, projects, kanban tasks, member invites, basic permissions, local setup, and deployment docs.
-```
-
-Run a whole goal in high-autonomy mode:
-
-```text
-/goal --super Complete the team task management MVP. Make ordinary product and technical decisions yourself, record key decisions, and only stop for paid services, destructive actions, secrets, production data, or security/compliance risks.
-```
-
-Claude Code equivalent:
-
-```text
-/zno-goal --super Complete the team task management MVP. Make ordinary product and technical decisions yourself, record key decisions, and only stop for paid services, destructive actions, secrets, production data, or security/compliance risks.
-```
-
-Resume in a new chat:
-
-```text
-/continue
-```
-
-Before leaving a chat:
-
-```text
-/status
-```
-
-Update the locally installed skills from the latest GitHub package:
-
-```text
-/upgrade Update my local skills from GitHub.
-```
-
-Claude Code equivalent:
-
-```text
-/zno-upgrade Update my local skills from GitHub.
-```
-
-## Project Docs Created By The Skills
-
-When initialized, projects receive a document set like:
-
-```text
-AI_DEVELOPMENT_RULES.md
+AI_DEVELOPMENT_RULES.md               AI 开发规范（项目级）
 docs/
-  00_START_HERE.md
-  README.md
   product/
-    01-requirements-clarification.md
-    06-roadmap.md
-    15-frontend-design.md
+    01-requirements-clarification.md   需求澄清
+    06-roadmap.md                      路线图
+    15-frontend-design.md              设计方向
+    15-frontend-design-tokens.json     设计 Token（可执行约束）
   engineering/
-    02-development-principles.md
-    04-tech-decisions.md
-    11-project-structure.md
+    02-development-principles.md       开发原则
+    04-tech-decisions.md               技术选型记录（按需）
   development/
-    03-feature-changelog.md
-    10-current-status.md
-    14-decision-log.md
+    03-feature-changelog.md            功能变更记录（按需）
+    10-current-status.md               当前状态快照（按需）
+    14-decision-log.md                 自治决策记录（按需）
+    16-retrospective.md                复盘记录（按需）
   operations/
-    07-local-development.md
-    08-deployment.md
+    07-local-development.md            本地开发说明（按需）
+    08-deployment.md                   部署说明（按需）
   handoff/
-    05-handoff-guide.md
-  maintenance/
-    09-ai-project-start-prompt.md
-    12-upgrade-history.md
-    13-command-reference.md
+    05-handoff-guide.md                接手指南（按需）
 ```
 
-These files are the continuity layer. They let another chat, another AI assistant, or another developer understand what has been decided and what remains. `docs/README.md` keeps the root entry points small and groups the rest of the docs into parent folders. `docs/product/15-frontend-design.md` captures product surface, UI references, design keywords, colors, layout, component style, interaction states, and frontend pitfalls.
-
-## Design Principles
-
-- New projects start with clarification and docs before implementation.
-- Existing projects use `/upgrade` or `/zno-upgrade`, not a destructive re-init.
-- Technical choices normally require options and confirmation.
-- `--super` skips ordinary confirmation but records important decisions.
-- Page-facing work must end with manual browser test steps.
-- UI projects start by collecting or recommending UI style references and recording the design direction in `docs/product/15-frontend-design.md`.
-- Cross-chat continuity goes through `docs/development/10-current-status.md`.
-- Project structure knowledge goes into `docs/engineering/11-project-structure.md`.
-- Command semantics are documented in `docs/maintenance/13-command-reference.md`.
-- High-autonomy decisions are recorded in `docs/development/14-decision-log.md`.
-
-## Repository Layout
+## 典型使用示例
 
 ```text
-skills/                 Codex skill folders installed into ~/.agents/skills
-claude-skills/          Claude Code alias skill folders installed into ~/.claude/skills
-install-all.ps1         Auto-detecting Windows installer/updater for Codex and Claude Code
-install-all.sh          Auto-detecting macOS/Linux installer/updater for Codex and Claude Code
-install.ps1             Codex Windows installer
-install.sh              Codex macOS/Linux installer
-install-claude.ps1      Claude Code Windows installer
-install-claude.sh       Claude Code macOS/Linux installer
-README.md               Project documentation
-README.zh-CN.md         Simplified Chinese documentation
-LICENSE                 MIT license
-CHANGELOG.md            Release notes
-CHANGELOG.zh-CN.md      Simplified Chinese release notes
-CONTRIBUTING.md         Contribution guide
-CONTRIBUTING.zh-CN.md   Simplified Chinese contribution guide
-SECURITY.md             Security policy
-SECURITY.zh-CN.md       Simplified Chinese security policy
+# 评估一个想法
+/zno-evaluate 我想做一个团队任务管理工具，带看板和成员邀请
+
+# 确认要做后，初始化项目
+/zno-init 团队任务管理工具，支持登录、项目、看板任务、成员邀请、基本权限
+
+# 全自动推进
+/zno-goal --super 完成团队任务管理 MVP
+
+# 开发中途保存状态
+/zno-status
+
+# 新会话续接P 阶段已完成
+
+# 升级到最新版本
+/zno-upgrade
 ```
 
-Each command is packaged as a standalone skill folder. The repository intentionally duplicates the bundled project template across command aliases for easy installation and offline use.
+## 在线升级
 
-## Updating Installed Skills
-
-For Codex:
+安装后可直接通过命令升级，无需重新 clone：
 
 ```text
-/upgrade Update my local skills from GitHub.
+/zno-upgrade
 ```
 
-For Claude Code:
+脚本会从 GitHub 下载最新版本，备份旧版本后替换。重启工具即可生效。
 
-```text
-/zno-upgrade Update my local skills from GitHub.
+## 仓库结构
+
+```
+skills/                 技能包目录（统一 source，所有平台共用）
+install-all.sh/.ps1     自动检测安装脚本
+install-claude.sh/.ps1  Claude Code 安装脚本
+install.sh/.ps1         Codex 安装脚本
+README.md               项目文档
+CHANGELOG.md            更新日志
+LICENSE                 MIT 协议
 ```
 
-The updater downloads the latest package from `1447751897/zno-project-command-skills`, validates the skill folders, backs up existing installed skills under the target tool's `.backup/` directory, then replaces the installed skill folders. Restart the relevant tool after the update.
+## 许可
 
-Manual update still works too. Pull the latest repository changes and rerun the auto installer:
-
-```bash
-git pull
-./install-all.sh
-```
-
-On Windows:
-
-```powershell
-git pull
-powershell -ExecutionPolicy Bypass -File .\install-all.ps1
-```
-
-Inside a project that was already initialized, run `/upgrade` in Codex or `/zno-upgrade` in Claude Code. This adds missing new docs and rules without overwriting project-specific content.
+MIT
