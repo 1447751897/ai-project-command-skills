@@ -8,25 +8,25 @@ The skills help an AI coding assistant clarify requirements, maintain project do
 
 ## Command Names
 
-Codex uses the original command names. Claude Code uses `ai-` prefixed aliases to avoid collisions with built-in Claude Code commands such as `/init`, `/plan`, and `/upgrade`.
+Codex uses the original command names. Claude Code uses `zno-` prefixed aliases to avoid collisions with built-in Claude Code commands such as `/init`, `/plan`, and `/upgrade`.
 
 | Purpose | Codex | Claude Code |
 | --- | --- | --- |
-| Start a new project | `/init` | `/ai-init` |
-| Run a long project or phase objective | `/goal` | `/ai-goal` |
-| High-autonomy goal mode | `/goal --super` | `/ai-goal --super` |
-| High-autonomy alias | `/super` | `/ai-super` |
-| Add a new feature | `/feature` | `/ai-feature` |
-| Change existing behavior or rules | `/change` | `/ai-change` |
-| Diagnose and fix a bug | `/fix` | `/ai-fix` |
-| Compare technical options | `/tech` | `/ai-tech` |
-| Update deployment or release guidance | `/deploy` | `/ai-deploy` |
-| Update onboarding and handoff guidance | `/handoff` | `/ai-handoff` |
-| Update phases, milestones, and priorities | `/roadmap` | `/ai-roadmap` |
-| Recommend next features or improvements | `/plan` | `/ai-plan` |
-| Write a current progress snapshot | `/status` | `/ai-status` |
-| Resume work in a new chat | `/continue` | `/ai-continue` |
-| Update installed skills or project docs | `/upgrade` | `/ai-upgrade` |
+| Start a new project | `/init` | `/zno-init` |
+| Run a long project or phase objective | `/goal` | `/zno-goal` |
+| High-autonomy goal mode | `/goal --super` | `/zno-goal --super` |
+| High-autonomy alias | `/super` | `/zno-super` |
+| Add a new feature | `/feature` | `/zno-feature` |
+| Change existing behavior or rules | `/change` | `/zno-change` |
+| Diagnose and fix a bug | `/fix` | `/zno-fix` |
+| Compare technical options | `/tech` | `/zno-tech` |
+| Update deployment or release guidance | `/deploy` | `/zno-deploy` |
+| Update onboarding and handoff guidance | `/handoff` | `/zno-handoff` |
+| Update phases, milestones, and priorities | `/roadmap` | `/zno-roadmap` |
+| Recommend next features or improvements | `/plan` | `/zno-plan` |
+| Write a current progress snapshot | `/status` | `/zno-status` |
+| Resume work in a new chat | `/continue` | `/zno-continue` |
+| Update installed skills or project docs | `/upgrade` | `/zno-upgrade` |
 
 ## One-Step Install Or Update
 
@@ -121,7 +121,7 @@ The Claude Code installer copies alias skills into:
 ~/.claude/skills
 ```
 
-Restart Claude Code after installation so it can rescan the skills. Use `/ai-init`, `/ai-goal`, `/ai-feature`, and the other `ai-` commands in Claude Code.
+Restart Claude Code after installation so it can rescan the skills. Use `/zno-init`, `/zno-goal`, `/zno-feature`, and the other `zno-` commands in Claude Code.
 
 ## Typical Usage
 
@@ -134,7 +134,7 @@ Start a new project:
 Claude Code equivalent:
 
 ```text
-/ai-init Build a team task management app with login, projects, kanban tasks, member invites, basic permissions, local setup, and deployment docs.
+/zno-init Build a team task management app with login, projects, kanban tasks, member invites, basic permissions, local setup, and deployment docs.
 ```
 
 Run a whole goal in high-autonomy mode:
@@ -146,7 +146,7 @@ Run a whole goal in high-autonomy mode:
 Claude Code equivalent:
 
 ```text
-/ai-goal --super Complete the team task management MVP. Make ordinary product and technical decisions yourself, record key decisions, and only stop for paid services, destructive actions, secrets, production data, or security/compliance risks.
+/zno-goal --super Complete the team task management MVP. Make ordinary product and technical decisions yourself, record key decisions, and only stop for paid services, destructive actions, secrets, production data, or security/compliance risks.
 ```
 
 Resume in a new chat:
@@ -170,7 +170,7 @@ Update the locally installed skills from the latest GitHub package:
 Claude Code equivalent:
 
 ```text
-/ai-upgrade Update my local skills from GitHub.
+/zno-upgrade Update my local skills from GitHub.
 ```
 
 ## Project Docs Created By The Skills
@@ -210,7 +210,7 @@ These files are the continuity layer. They let another chat, another AI assistan
 ## Design Principles
 
 - New projects start with clarification and docs before implementation.
-- Existing projects use `/upgrade` or `/ai-upgrade`, not a destructive re-init.
+- Existing projects use `/upgrade` or `/zno-upgrade`, not a destructive re-init.
 - Technical choices normally require options and confirmation.
 - `--super` skips ordinary confirmation but records important decisions.
 - Page-facing work must end with manual browser test steps.
@@ -255,10 +255,10 @@ For Codex:
 For Claude Code:
 
 ```text
-/ai-upgrade Update my local skills from GitHub.
+/zno-upgrade Update my local skills from GitHub.
 ```
 
-The updater downloads the latest package from `1447751897/ai-project-command-skills`, validates the skill folders, backs up existing installed skills under the target tool's `.backup/` directory, then replaces the installed skill folders. Restart the relevant tool after the update.
+The updater downloads the latest package from `1447751897/zno-project-command-skills`, validates the skill folders, backs up existing installed skills under the target tool's `.backup/` directory, then replaces the installed skill folders. Restart the relevant tool after the update.
 
 Manual update still works too. Pull the latest repository changes and rerun the auto installer:
 
@@ -274,4 +274,4 @@ git pull
 powershell -ExecutionPolicy Bypass -File .\install-all.ps1
 ```
 
-Inside a project that was already initialized, run `/upgrade` in Codex or `/ai-upgrade` in Claude Code. This adds missing new docs and rules without overwriting project-specific content.
+Inside a project that was already initialized, run `/upgrade` in Codex or `/zno-upgrade` in Claude Code. This adds missing new docs and rules without overwriting project-specific content.

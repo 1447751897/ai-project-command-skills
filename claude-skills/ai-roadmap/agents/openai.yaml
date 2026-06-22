@@ -1,4 +1,0 @@
-interface:
-  display_name: "Roadmap"
-  short_description: "Update roadmap phases and milestones"
-  default_prompt: "Use $roadmap with /ai-roadmap to update phases, priorities, and milestones."

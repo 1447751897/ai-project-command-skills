@@ -8,25 +8,25 @@
 
 ## 命令名称
 
-Codex 使用原始命令名。Claude Code 使用带 `ai-` 前缀的别名，避免和 Claude Code 自带的 `/init`、`/plan`、`/upgrade` 等命令冲突。
+Codex 使用原始命令名。Claude Code 使用带 `zno-` 前缀的别名，避免和 Claude Code 自带的 `/init`、`/plan`、`/upgrade` 等命令冲突。
 
 | 用途 | Codex | Claude Code |
 | --- | --- | --- |
-| 启动新项目 | `/init` | `/ai-init` |
-| 执行较长项目或阶段目标 | `/goal` | `/ai-goal` |
-| 高自治 Goal 模式 | `/goal --super` | `/ai-goal --super` |
-| 高自治兼容别名 | `/super` | `/ai-super` |
-| 新增功能 | `/feature` | `/ai-feature` |
-| 修改已有行为或规则 | `/change` | `/ai-change` |
-| 定位并修复 bug | `/fix` | `/ai-fix` |
-| 对比技术选型 | `/tech` | `/ai-tech` |
-| 更新部署或发布说明 | `/deploy` | `/ai-deploy` |
-| 更新接手和交接说明 | `/handoff` | `/ai-handoff` |
-| 更新阶段、里程碑和优先级 | `/roadmap` | `/ai-roadmap` |
-| 推荐下一步功能或优化 | `/plan` | `/ai-plan` |
-| 写入当前进度快照 | `/status` | `/ai-status` |
-| 在新对话继续开发 | `/continue` | `/ai-continue` |
-| 更新本地 skills 或项目文档 | `/upgrade` | `/ai-upgrade` |
+| 启动新项目 | `/init` | `/zno-init` |
+| 执行较长项目或阶段目标 | `/goal` | `/zno-goal` |
+| 高自治 Goal 模式 | `/goal --super` | `/zno-goal --super` |
+| 高自治兼容别名 | `/super` | `/zno-super` |
+| 新增功能 | `/feature` | `/zno-feature` |
+| 修改已有行为或规则 | `/change` | `/zno-change` |
+| 定位并修复 bug | `/fix` | `/zno-fix` |
+| 对比技术选型 | `/tech` | `/zno-tech` |
+| 更新部署或发布说明 | `/deploy` | `/zno-deploy` |
+| 更新接手和交接说明 | `/handoff` | `/zno-handoff` |
+| 更新阶段、里程碑和优先级 | `/roadmap` | `/zno-roadmap` |
+| 推荐下一步功能或优化 | `/plan` | `/zno-plan` |
+| 写入当前进度快照 | `/status` | `/zno-status` |
+| 在新对话继续开发 | `/continue` | `/zno-continue` |
+| 更新本地 skills 或项目文档 | `/upgrade` | `/zno-upgrade` |
 
 ## 一键安装或更新
 
@@ -121,7 +121,7 @@ Claude Code 安装脚本会把别名 skills 复制到：
 ~/.claude/skills
 ```
 
-安装完成后，重启 Claude Code，让它重新扫描 skills。在 Claude Code 里使用 `/ai-init`、`/ai-goal`、`/ai-feature` 等 `ai-` 命令。
+安装完成后，重启 Claude Code，让它重新扫描 skills。在 Claude Code 里使用 `/zno-init`、`/zno-goal`、`/zno-feature` 等 `zno-` 命令。
 
 ## 常见用法
 
@@ -134,7 +134,7 @@ Claude Code 安装脚本会把别名 skills 复制到：
 Claude Code 对应写法：
 
 ```text
-/ai-init 构建一个团队任务管理应用，包含登录、项目、看板任务、成员邀请、基础权限、本地启动说明和部署文档。
+/zno-init 构建一个团队任务管理应用，包含登录、项目、看板任务、成员邀请、基础权限、本地启动说明和部署文档。
 ```
 
 用高自治模式执行完整目标：
@@ -146,7 +146,7 @@ Claude Code 对应写法：
 Claude Code 对应写法：
 
 ```text
-/ai-goal --super 完成团队任务管理系统 MVP。普通产品和技术决策由你自行选择并记录，只在涉及付费服务、破坏性操作、密钥、生产数据或安全合规风险时停止询问。
+/zno-goal --super 完成团队任务管理系统 MVP。普通产品和技术决策由你自行选择并记录，只在涉及付费服务、破坏性操作、密钥、生产数据或安全合规风险时停止询问。
 ```
 
 在新对话中继续：
@@ -170,7 +170,7 @@ Claude Code 对应写法：
 Claude Code 对应写法：
 
 ```text
-/ai-upgrade 从 GitHub 更新我本地的 skills。
+/zno-upgrade 从 GitHub 更新我本地的 skills。
 ```
 
 ## Skill 会创建的项目文档
@@ -210,7 +210,7 @@ docs/
 ## 设计原则
 
 - 新项目先澄清需求并生成文档，再进入实现。
-- 已有项目使用 `/upgrade` 或 `/ai-upgrade`，不要破坏性重新初始化。
+- 已有项目使用 `/upgrade` 或 `/zno-upgrade`，不要破坏性重新初始化。
 - 重要技术选型默认需要给出方案对比和确认。
 - `--super` 会跳过普通确认，但必须记录重要决策。
 - 涉及页面的工作，结束时必须给出手工浏览器测试步骤。
@@ -255,10 +255,10 @@ Codex：
 Claude Code：
 
 ```text
-/ai-upgrade 从 GitHub 更新我本地的 skills。
+/zno-upgrade 从 GitHub 更新我本地的 skills。
 ```
 
-更新器会从 `1447751897/ai-project-command-skills` 下载最新包，验证 skill 文件夹完整性，把旧版安装备份到对应工具目录下的 `.backup/`，然后替换本地已安装的 skill 文件夹。更新完成后需要重启对应工具。
+更新器会从 `1447751897/zno-project-command-skills` 下载最新包，验证 skill 文件夹完整性，把旧版安装备份到对应工具目录下的 `.backup/`，然后替换本地已安装的 skill 文件夹。更新完成后需要重启对应工具。
 
 手动更新也仍然可用。拉取最新仓库内容并重新运行自动安装脚本：
 
@@ -274,4 +274,4 @@ git pull
 powershell -ExecutionPolicy Bypass -File .\install-all.ps1
 ```
 
-如果某个项目已经用旧版本初始化过，请在 Codex 里运行 `/upgrade`，或在 Claude Code 里运行 `/ai-upgrade`。这会补充缺失的新文档和规则，不会覆盖项目自己的已有内容。
+如果某个项目已经用旧版本初始化过，请在 Codex 里运行 `/upgrade`，或在 Claude Code 里运行 `/zno-upgrade`。这会补充缺失的新文档和规则，不会覆盖项目自己的已有内容。

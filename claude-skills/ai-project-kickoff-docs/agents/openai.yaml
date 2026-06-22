@@ -1,4 +1,0 @@
-interface:
-  display_name: "Project Kickoff Docs"
-  short_description: "Document-first project workflow commands"
-  default_prompt: "Use $project-kickoff-docs with /ai-goal or /ai-goal --super to run project work, or use specific workflow commands."

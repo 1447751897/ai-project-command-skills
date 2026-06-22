@@ -3,7 +3,7 @@ set -euo pipefail
 
 TOOL="auto"
 SOURCE="local"
-REPOSITORY="1447751897/ai-project-command-skills"
+REPOSITORY="1447751897/zno-project-command-skills"
 BRANCH="master"
 CODEX_TARGET_ROOT="$HOME/.agents/skills"
 CLAUDE_TARGET_ROOT="$HOME/.claude/skills"
@@ -81,21 +81,21 @@ CODEX_SKILL_NAMES=(
 )
 
 CLAUDE_SKILL_NAMES=(
-  ai-init
-  ai-goal
-  ai-super
-  ai-feature
-  ai-change
-  ai-fix
-  ai-tech
-  ai-deploy
-  ai-handoff
-  ai-roadmap
-  ai-plan
-  ai-status
-  ai-continue
-  ai-upgrade
-  ai-project-kickoff-docs
+  zno-init
+  zno-goal
+  zno-super
+  zno-feature
+  zno-change
+  zno-fix
+  zno-tech
+  zno-deploy
+  zno-handoff
+  zno-roadmap
+  zno-plan
+  zno-status
+  zno-continue
+  zno-upgrade
+  zno-project-kickoff-docs
 )
 
 command_exists() {
@@ -147,13 +147,13 @@ import zipfile
 from pathlib import Path
 
 repository, branch = sys.argv[1], sys.argv[2]
-temp_root = Path(tempfile.mkdtemp(prefix="ai-project-command-skills-"))
+temp_root = Path(tempfile.mkdtemp(prefix="zno-project-command-skills-"))
 zip_path = temp_root / "package.zip"
 extract_root = temp_root / "extract"
 extract_root.mkdir()
 url = f"https://github.com/{repository}/archive/refs/heads/{branch}.zip"
 print(f"Downloading: {url}", file=sys.stderr)
-request = urllib.request.Request(url, headers={"User-Agent": "ai-project-command-skills-installer"})
+request = urllib.request.Request(url, headers={"User-Agent": "zno-project-command-skills-installer"})
 with urllib.request.urlopen(request, timeout=60) as response:
     zip_path.write_bytes(response.read())
 with zipfile.ZipFile(zip_path) as archive:
@@ -182,7 +182,7 @@ backup_existing() {
     return 0
   fi
 
-  local backup_root="$target_root/.backup/ai-project-command-skills-$(date +%Y%m%d-%H%M%S)"
+  local backup_root="$target_root/.backup/zno-project-command-skills-$(date +%Y%m%d-%H%M%S)"
   mkdir -p "$backup_root"
   for path in "${existing[@]}"; do
     cp -R "$path" "$backup_root/$(basename "$path")"

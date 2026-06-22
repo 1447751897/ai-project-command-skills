@@ -1,4 +1,0 @@
-interface:
-  display_name: "Feature"
-  short_description: "Clarify and document new features"
-  default_prompt: "Use $feature with /ai-feature to clarify and implement a new project feature with docs updated."

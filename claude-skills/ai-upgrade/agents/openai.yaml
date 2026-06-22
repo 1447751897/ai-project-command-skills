@@ -1,4 +1,0 @@
-interface:
-  display_name: "Upgrade"
-  short_description: "Update installed skills or project docs"
-  default_prompt: "Use $upgrade with /ai-upgrade to update local skills from GitHub or add missing docs from the latest project workflow template."

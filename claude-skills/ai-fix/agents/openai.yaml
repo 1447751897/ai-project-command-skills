@@ -1,4 +1,0 @@
-interface:
-  display_name: "Fix"
-  short_description: "Fix bugs with verification and changelog"
-  default_prompt: "Use $fix with /ai-fix to diagnose, repair, verify, and record a bug fix."

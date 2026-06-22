@@ -14,21 +14,21 @@ if (-not (Test-Path $SkillsSource)) {
 New-Item -ItemType Directory -Force -Path $TargetRoot | Out-Null
 
 $SkillNames = @(
-    "ai-init",
-    "ai-goal",
-    "ai-super",
-    "ai-feature",
-    "ai-change",
-    "ai-fix",
-    "ai-tech",
-    "ai-deploy",
-    "ai-handoff",
-    "ai-roadmap",
-    "ai-plan",
-    "ai-status",
-    "ai-continue",
-    "ai-upgrade",
-    "ai-project-kickoff-docs"
+    "zno-init",
+    "zno-goal",
+    "zno-super",
+    "zno-feature",
+    "zno-change",
+    "zno-fix",
+    "zno-tech",
+    "zno-deploy",
+    "zno-handoff",
+    "zno-roadmap",
+    "zno-plan",
+    "zno-status",
+    "zno-continue",
+    "zno-upgrade",
+    "zno-project-kickoff-docs"
 )
 
 foreach ($Name in $SkillNames) {
@@ -49,4 +49,4 @@ foreach ($Name in $SkillNames) {
 }
 
 Write-Host ""
-Write-Host "Done. Restart Claude Code, then try /ai-init, /ai-goal, /ai-goal --super, /ai-feature, /ai-fix, /ai-tech, /ai-deploy, /ai-handoff, /ai-roadmap, /ai-plan, /ai-status, /ai-continue, or /ai-upgrade. /ai-super is also available as a compatibility alias."
+Write-Host "Done. Restart Claude Code, then try /zno-init, /zno-goal, /zno-goal --super, /zno-feature, /zno-fix, /zno-tech, /zno-deploy, /zno-handoff, /zno-roadmap, /zno-plan, /zno-status, /zno-continue, or /zno-upgrade. /zno-super is also available as a compatibility alias."

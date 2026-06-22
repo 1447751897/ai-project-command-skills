@@ -5,7 +5,7 @@ param(
     [ValidateSet("local", "github")]
     [string]$Source = "local",
 
-    [string]$Repository = "1447751897/ai-project-command-skills",
+    [string]$Repository = "1447751897/zno-project-command-skills",
     [string]$Branch = "master",
     [string]$CodexTargetRoot = (Join-Path $env:USERPROFILE ".agents\skills"),
     [string]$ClaudeTargetRoot = (Join-Path $env:USERPROFILE ".claude\skills"),
@@ -33,21 +33,21 @@ $CodexSkillNames = @(
 )
 
 $ClaudeSkillNames = @(
-    "ai-init",
-    "ai-goal",
-    "ai-super",
-    "ai-feature",
-    "ai-change",
-    "ai-fix",
-    "ai-tech",
-    "ai-deploy",
-    "ai-handoff",
-    "ai-roadmap",
-    "ai-plan",
-    "ai-status",
-    "ai-continue",
-    "ai-upgrade",
-    "ai-project-kickoff-docs"
+    "zno-init",
+    "zno-goal",
+    "zno-super",
+    "zno-feature",
+    "zno-change",
+    "zno-fix",
+    "zno-tech",
+    "zno-deploy",
+    "zno-handoff",
+    "zno-roadmap",
+    "zno-plan",
+    "zno-status",
+    "zno-continue",
+    "zno-upgrade",
+    "zno-project-kickoff-docs"
 )
 
 function Test-CommandExists {
@@ -75,7 +75,7 @@ function Get-PackageRoot {
         return (Split-Path -Parent $MyInvocation.ScriptName)
     }
 
-    $TempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("ai-project-command-skills-" + [guid]::NewGuid().ToString("N"))
+    $TempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("zno-project-command-skills-" + [guid]::NewGuid().ToString("N"))
     New-Item -ItemType Directory -Force -Path $TempRoot | Out-Null
     $ZipPath = Join-Path $TempRoot "package.zip"
     $ExtractRoot = Join-Path $TempRoot "extract"
@@ -127,7 +127,7 @@ function Backup-ExistingSkills {
         return $null
     }
 
-    $BackupRoot = Join-Path $TargetRoot (Join-Path ".backup" ("ai-project-command-skills-" + (Get-Date -Format "yyyyMMdd-HHmmss")))
+    $BackupRoot = Join-Path $TargetRoot (Join-Path ".backup" ("zno-project-command-skills-" + (Get-Date -Format "yyyyMMdd-HHmmss")))
     New-Item -ItemType Directory -Force -Path $BackupRoot | Out-Null
     foreach ($Path in $Existing) {
         Copy-Item -Recurse -Force -LiteralPath $Path -Destination (Join-Path $BackupRoot (Split-Path -Leaf $Path))
