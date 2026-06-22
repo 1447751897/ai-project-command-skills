@@ -28,6 +28,9 @@ SKILL_NAMES=(
   zno-continue
   zno-upgrade
   zno-project-kickoff-docs
+  zno-evaluate
+  zno-retro
+  zno-review
 )
 
 for name in "${SKILL_NAMES[@]}"; do

@@ -28,6 +28,9 @@ CODEX_SKILL_NAMES = [
     "zno-continue",
     "zno-upgrade",
     "zno-project-kickoff-docs",
+    "zno-evaluate",
+    "zno-retro",
+    "zno-review",
 ]
 
 CLAUDE_SKILL_NAMES = [
@@ -46,6 +49,9 @@ CLAUDE_SKILL_NAMES = [
     "zno-continue",
     "zno-upgrade",
     "zno-project-kickoff-docs",
+    "zno-evaluate",
+    "zno-retro",
+    "zno-review",
 ]
 
 
