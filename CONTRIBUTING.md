@@ -1,36 +1,24 @@
-# Contributing
+# 贡献指南
 
-[简体中文](CONTRIBUTING.zh-CN.md) | English
+感谢你改进 AI Project Command Skills。
 
-Thanks for improving AI Project Command Skills.
+## 开发约定
 
-## Development Notes
-
-- Keep command behavior documented in the skill instructions and in `docs/maintenance/13-command-reference.md` inside the bundled project template.
-- If you add a new project document template, update:
+- 命令行为必须同时记录在 SKILL.md 和项目模板的 `docs/maintenance/13-command-reference.md` 中
+- 新增项目文档模板时，需要同步更新：
   - `docs/00_START_HERE.md`
   - `docs/README.md`
-  - `docs/maintenance/09-ai-project-start-prompt.md`
-  - `docs/maintenance/13-command-reference.md`
-  - top-level `README.md` and `README.zh-CN.md`
-  - `docs/maintenance/12-upgrade-history.md` expectations if needed
-- If you change technical decision behavior, update `docs/engineering/04-tech-decisions.md` and `docs/development/14-decision-log.md` if relevant.
-- If you change installable Codex command names, update both `install.ps1` and `install.sh`.
-- If you add or rename workflow skills, keep `skills/` and `claude-skills/` in sync. Claude Code aliases should keep the `ai-` prefix.
-- If you change Claude Code command names, update both `install-claude.ps1` and `install-claude.sh`.
-- If you change install targets or skill lists, update `install-all.ps1` and `install-all.sh` too.
-- Keep `/super` as a compatibility alias for `/goal --super`.
+  - `init_project_docs.py`（ESSENTIAL_FILES 或 ON_DEMAND_MAP）
+  - 顶层 `README.md`
+- 所有 15 个 skill 目录共享同一份 SKILL.md 正文，修改时只改 `zno-init/SKILL.md`，然后同步到其余目录（保留各自 frontmatter）
+- `/zno-super` 保持为 `/zno-goal --super` 的兼容别名
+- 仓库只有一个 `skills/` 目录，所有平台共用，安装脚本决定目标路径
 
-## Validation
+## 验证步骤
 
-Before publishing a change:
+发布变更前：
 
-1. Install locally with the platform installer.
-2. Restart Codex desktop.
-3. Confirm the command menu can find the changed command.
-4. Test at least:
-
-Auto installer:
+1. 本地安装：
 
 ```bash
 ./install-all.sh --tool all --dry-run
@@ -40,33 +28,32 @@ Auto installer:
 powershell -ExecutionPolicy Bypass -File .\install-all.ps1 -Tool all -DryRun
 ```
 
-Core commands:
+2. 核心命令验证：
 
 ```text
-/init Test project
-/goal Test objective
-/goal --super Test objective
-/upgrade
-/status
-/continue
+/zno-init 测试项目
+/zno-goal 测试目标
+/zno-goal --super 测试目标
+/zno-evaluate 测试想法
+/zno-upgrade
+/zno-status
+/zno-continue
+/zno-retro
+/zno-review
 ```
 
-For Claude Code compatibility, also validate the alias package with:
+3. Python 脚本语法检查：
 
-```text
-/ai-init Test project
-/ai-goal Test objective
-/ai-goal --super Test objective
-/ai-upgrade
-/ai-status
-/ai-continue
+```bash
+python -c "import ast; ast.parse(open('skills/zno-init/scripts/init_project_docs.py', encoding='utf-8').read())"
+python -c "import ast; ast.parse(open('skills/zno-upgrade/scripts/update_installed_skills.py', encoding='utf-8').read())"
 ```
 
-## Pull Requests
+## Pull Request 要求
 
-Please include:
+请包含：
 
-- What command or document behavior changed.
-- Which bundled templates were updated.
-- Whether Codex skills and Claude Code alias skills were both updated when applicable.
-- How you validated the change.
+- 改了哪个命令或文档行为
+- 哪些模板文件被更新
+- 是否已同步到所有 15 个 skill 目录
+- 如何验证的

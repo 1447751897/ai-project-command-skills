@@ -1,73 +1,56 @@
-# Changelog
+# 更新日志
 
-[简体中文](CHANGELOG.zh-CN.md) | English
+## 2.0.0 - 2026-06-22
+
+大版本升级：命令前缀统一为 zno-，新增立项评估和复盘沉淀，合并双目录为单一 source。
+
+### 破坏n- 所有命令前缀从 ai- / 无前缀统一为 zno-（如 /zno-init、/zno-feature）
+- claude-skills/ 和 skills/ 合并为单一 skills/ 目录
+- 旧版 /ai-upgrade 无法升级到本版本，需重新安装
+
+### 新增功能
+
+- /zno-evaluate：立项评估，苏格拉底式提问验证项目价值，输出 做/不做/延期
+- /zno-retro：复盘沉淀，阶段完成后回顾，提炼可复用规则写入 AI_DEVELOPMENT_RULES.md
+- /zno-review：代码自审，5 维度审查（安全/性能/错误处理/SOLID/项目规范）
+- TDD 流程：有测试框架时默认 Red-Green-Refactor
+- 验证门禁：实现完成后必须提供至少 2 项证据才能标记完成
+- 前端设计 Token 文件（15-frontend-design-tokens.json）：AI 写前端必须引用 token 值
+- 渐进式文档生成：/zno-init 只建 8 个核心文件，其余按需触发时才创建
+
+### 改进
+
+- init_project_docs.py 新增 --scaffold 按需生成、--full 全量生成
+- update_installed_skills.py 新增 rename 和内容替换兼容逻辑
+- AI_DEVELOPMENT_RULES.md 模板新增 TDD、验证门禁、Token 约束规则
+- README 改为中文优先，GitHub About 描述更新为中文
+
+### 文档模板新增
+
+- docs/development/16-retrospective.md：复盘记录模板
+- docs/product/15-frontend-design-tokens.json：设计 Token 模板
 
 ## 0.2.1 - 2026-06-22
 
-Frontend design initialization and parent-folder doc classification.
+前端设计初始化和文档目录分类。
 
-- Added `docs/product/15-frontend-design.md` to the initialized project template.
-- `/init` now collects or recommends UI style references for UI-facing projects and records design keywords, colors, layout, component style, interaction states, and pitfalls to avoid.
-- Moved generated project docs into parent folders and documented the category layout in `docs/README.md`.
-- Updated Codex and Claude Code skill templates so frontend design changes are tracked during later feature/change work.
+- 新增 docs/product/15-frontend-design.md 项目模板
+- /init 现在会收集或推荐 UI 风格参考，记录设计关键词
+- 项目文档移入父目录分类
 
 ## 0.2.0 - 2026-06-18
 
-Claude Code compatibility.
+Claude Code 兼容。
 
-- Added auto-detecting installers: `install-all.ps1` and `install-all.sh`.
-- Auto installers can install/update detected Codex and Claude Code packages from either the local repo or the latest GitHub package.
-- Added Claude Code alias skills under `claude-skills/`.
-- Added Claude Code installers: `install-claude.ps1` and `install-claude.sh`.
-- Added `/ai-*` command aliases for Claude Code to avoid conflicts with built-in commands such as `/init`, `/plan`, and `/upgrade`.
-- Extended the GitHub self-updater with `--tool codex|claude`, so Codex updates `~/.agents/skills` and Claude Code updates `~/.claude/skills`.
-- Updated English and Simplified Chinese documentation with dual-tool installation and command tables.
+- 新增自动检测安装脚本 install-all.ps1 / install-all.sh
+- 新增 Claude Code 别名技能包
+- 新增 /ai-* 命令别名避免与 Claude Code 内置命令冲突
+- GitHub 自更新脚本支持 --tool codex|claude 参数
 
 ## 0.1.1 - 2026-06-17
 
-Documentation update.
-
-- Added Simplified Chinese documentation for Chinese-speaking users.
-- Added language links between English and Chinese documentation files.
-- Added a local skills updater for `/upgrade` so installed skills can be refreshed from the latest GitHub package.
+文档更新。新增中文文档和本地技能更新脚本。
 
 ## 0.1.0 - 2026-06-17
 
-Initial open-source release.
-
-Included commands:
-
-- `/init`
-- `/goal`
-- `/goal --super`
-- `/super` compatibility alias
-- `/feature`
-- `/change`
-- `/fix`
-- `/tech`
-- `/deploy`
-- `/handoff`
-- `/roadmap`
-- `/plan`
-- `/status`
-- `/continue`
-- `/upgrade`
-
-Included project docs:
-
-- `AI_DEVELOPMENT_RULES.md`
-- `docs/00_START_HERE.md`
-- `docs/product/01-requirements-clarification.md`
-- `docs/engineering/02-development-principles.md`
-- `docs/development/03-feature-changelog.md`
-- `docs/engineering/04-tech-decisions.md`
-- `docs/handoff/05-handoff-guide.md`
-- `docs/product/06-roadmap.md`
-- `docs/operations/07-local-development.md`
-- `docs/operations/08-deployment.md`
-- `docs/maintenance/09-ai-project-start-prompt.md`
-- `docs/development/10-current-status.md`
-- `docs/engineering/11-project-structure.md`
-- `docs/maintenance/12-upgrade-history.md`
-- `docs/maintenance/13-command-reference.md`
-- `docs/development/14-decision-log.md`
+首次开源发布。包含 15 个命令和完整项目文档模板。

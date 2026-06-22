@@ -1,20 +1,18 @@
-# Security Policy
+# 安全策略
 
-[简体中文](SECURITY.zh-CN.md) | English
+## 报告安全问题
 
-## Reporting
+如果你在技能模板或安装脚本中发现安全问题，请在 GitHub Issue 中描述问题和复现步骤。
 
-If you find a security issue in the skill templates or installer scripts, open a GitHub issue with a clear description and reproduction steps.
+请勿在 Issue 中包含真实密钥、访问令牌、生产凭据、私钥或敏感项目数据。
 
-Do not include real secrets, access tokens, production credentials, private keys, or sensitive project data in issue text.
+## 范围
 
-## Scope
+本仓库包含本地 AI 编程工具的技能文件夹和安装脚本。技能本质上是指令和模板，不提供托管服务。
 
-This repository contains local Codex skill folders and install scripts. The skills are instructions and templates; they do not provide a hosted service.
+工作流中的安全边界：
 
-Important safety boundaries in the bundled workflow:
-
-- Do not hardcode secrets.
-- Do not commit real tokens.
-- Do not perform destructive Git operations unless explicitly requested.
-- `/goal --super` still stops for paid services, production data deletion, secrets, destructive Git operations, and clear security/compliance risks.
+- 禁止硬编码密钥
+- 禁止提交真实 token
+- 未经明确要求不执行破坏性 Git 操作
+- `/zno-goal --super` 遇到付费服务、生产数据删除、密钥、破坏性 Git 操作或安全/合规风险时仍会停下确认
