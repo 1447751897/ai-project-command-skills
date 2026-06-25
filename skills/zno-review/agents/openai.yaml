@@ -1,4 +1,4 @@
 interface:
-  display_name: "Review"
+  display_name: "zno-review"
   short_description: "Self-review code across 5 dimensions"
-  default_prompt: "Use $review with /zno-review to audit recent changes for security, performance, error handling, SOLID/DRY, and conventions."
+  default_prompt: "Use $zno-review with /zno-review to audit recent changes for security, performance, error handling, SOLID/DRY, and conventions."

@@ -1,4 +1,4 @@
 interface:
-  display_name: "Evaluate"
+  display_name: "zno-evaluate"
   short_description: "Validate whether a project idea is worth doing"
-  default_prompt: "Use $evaluate with /zno-evaluate to challenge a project idea before committing to building it."
+  default_prompt: "Use $zno-evaluate with /zno-evaluate to challenge a project idea before committing to building it."

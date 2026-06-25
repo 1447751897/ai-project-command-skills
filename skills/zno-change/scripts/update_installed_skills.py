@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 import shutil
 import tempfile
 import urllib.request
@@ -57,8 +58,10 @@ CLAUDE_SKILL_NAMES = [
 
 def infer_tool_from_script_path() -> str:
     parts = {part.lower() for part in Path(__file__).resolve().parts}
-    if ".claude" in parts or any(name in parts for name in CLAUDE_SKILL_NAMES):
+    if ".claude" in parts:
         return "claude"
+    if ".agents" in parts or ".codex" in parts:
+        return "codex"
     return "codex"
 
 
@@ -122,8 +125,9 @@ def validate_skills(skills_root: Path, skill_names: list[str]) -> list[str]:
     return available
 
 
-def rename_upstream_to_local(skills_root: Path) -> None:
+def rename_upstream_to_local(skills_root: Path) -> int:
     """Rename ai-* directories from upstream to zno-* for local installation."""
+    count = 0
     for child in list(skills_root.iterdir()):
         if child.is_dir() and child.name.startswith("ai-"):
             new_name = "zno-" + child.name[3:]
@@ -131,12 +135,13 @@ def rename_upstream_to_local(skills_root: Path) -> None:
             if not target.exists():
                 child.rename(target)
                 print(f"  Mapped upstream {child.name} -> {new_name}")
+                count += 1
+    return count
 
 
 def replace_prefix_in_files(skills_root: Path) -> None:
     """Replace ai- prefix references with zno- in all text files after download."""
     replacements = [
-        ("/ai-", "/zno-"),
         ("name: ai-", "name: zno-"),
         ("# Ai-", "# Zno-"),
         ("'ai-", "'zno-"),
@@ -159,6 +164,7 @@ def replace_prefix_in_files(skills_root: Path) -> None:
         original = content
         for old, new in replacements:
             content = content.replace(old, new)
+        content = re.sub(r"(?<![A-Za-z0-9_.-])/ai-", "/zno-", content)
 
         if content != original:
             filepath.write_text(content, encoding="utf-8")
@@ -166,6 +172,48 @@ def replace_prefix_in_files(skills_root: Path) -> None:
 
     if count:
         print(f"  Replaced ai- -> zno- prefix in {count} files")
+
+
+def normalize_openai_metadata(skills_root: Path, skill_names: list[str]) -> None:
+    """Keep Codex skill menu names searchable by their zno-* skill IDs."""
+    count = 0
+    for name in skill_names:
+        metadata_path = skills_root / name / "agents" / "openai.yaml"
+        if not metadata_path.is_file() or not name.startswith("zno-"):
+            continue
+
+        try:
+            content = metadata_path.read_text(encoding="utf-8")
+        except (UnicodeDecodeError, OSError):
+            continue
+
+        updated_lines: list[str] = []
+        changed = False
+        for line in content.splitlines():
+            stripped = line.strip()
+            if stripped.startswith("display_name:"):
+                prefix = line[: len(line) - len(line.lstrip())]
+                new_line = f'{prefix}display_name: "{name}"'
+            elif stripped.startswith("default_prompt:"):
+                new_line = re.sub(
+                    r"(Use\s+\$)[A-Za-z0-9_-]+",
+                    lambda match: f"{match.group(1)}{name}",
+                    line,
+                    count=1,
+                )
+            else:
+                new_line = line
+
+            if new_line != line:
+                changed = True
+            updated_lines.append(new_line)
+
+        if changed:
+            metadata_path.write_text("\n".join(updated_lines) + "\n", encoding="utf-8")
+            count += 1
+
+    if count:
+        print(f"  Normalized agents/openai.yaml metadata in {count} skills")
 
 
 def backup_existing(target_root: Path, skill_names: list[str]) -> Path | None:
@@ -244,21 +292,23 @@ def main() -> int:
         package_root = find_package_root(extract_root, required_source_dir)
         skills_root = package_root / required_source_dir
 
-        # Upstream repo uses ai-* directory names; rename to zno-* for local install
-        if args.tool == "claude":
-            rename_upstream_to_local(skills_root)
+        # Older upstream packages may still use ai-* names. Normalize them before validation.
+        renamed_count = rename_upstream_to_local(skills_root)
+        if renamed_count:
             replace_prefix_in_files(skills_root)
 
         # Discover all available skills from the downloaded package (auto-detect new ones)
-        skill_names = discover_skills(skills_root)
-        if not skill_names:
+        discovered_names = discover_skills(skills_root)
+        if not discovered_names:
             raise SystemExit("Downloaded package contains no valid skill directories.")
+        validate_skills(skills_root, expected_names)
+        normalize_openai_metadata(skills_root, discovered_names)
 
         print(f"Tool: {args.tool}")
         print(f"Package root: {package_root}")
         print(f"Source skills: {skills_root}")
         print(f"Target root: {target_root}")
-        install_skills(skills_root, target_root, skill_names, args.dry_run)
+        install_skills(skills_root, target_root, discovered_names, args.dry_run)
 
     if args.dry_run:
         print("Dry run complete. No local skills were changed.")

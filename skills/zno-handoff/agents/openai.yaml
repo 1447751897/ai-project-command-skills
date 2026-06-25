@@ -1,4 +1,4 @@
 interface:
-  display_name: "Handoff"
+  display_name: "zno-handoff"
   short_description: "Update project handoff guidance"
-  default_prompt: "Use $handoff with /zno-handoff to update project handoff guidance."
+  default_prompt: "Use $zno-handoff with /zno-handoff to update project handoff guidance."

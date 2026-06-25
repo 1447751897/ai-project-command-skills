@@ -1,4 +1,4 @@
 interface:
-  display_name: "Upgrade"
+  display_name: "zno-upgrade"
   short_description: "Update installed skills or project docs"
-  default_prompt: "Use $upgrade with /zno-upgrade to update local skills from GitHub or add missing docs from the latest project workflow template."
+  default_prompt: "Use $zno-upgrade with /zno-upgrade to update local skills from GitHub or add missing docs from the latest project workflow template."

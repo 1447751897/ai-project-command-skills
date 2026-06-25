@@ -1,4 +1,4 @@
 interface:
-  display_name: "Deploy"
+  display_name: "zno-deploy"
   short_description: "Update deployment and rollback docs"
-  default_prompt: "Use $deploy with /zno-deploy to update deployment or release instructions."
+  default_prompt: "Use $zno-deploy with /zno-deploy to update deployment or release instructions."

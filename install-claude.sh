@@ -48,4 +48,4 @@ for name in "${SKILL_NAMES[@]}"; do
 done
 
 echo
-echo "Done. Restart Claude Code, then try /zno-init, /zno-goal, /zno-goal --super, /zno-feature, /zno-fix, /zno-tech, /zno-deploy, /zno-handoff, /zno-roadmap, /zno-plan, /zno-status, /zno-continue, or /zno-upgrade. /zno-super is also available as a compatibility alias."
+echo "Done. Restart Claude Code, then try /zno-init, /zno-goal, /zno-goal --super, /zno-evaluate, /zno-review, /zno-retro, /zno-feature, /zno-fix, /zno-tech, /zno-deploy, /zno-handoff, /zno-roadmap, /zno-plan, /zno-status, /zno-continue, or /zno-upgrade. /zno-super is also available as a compatibility alias."

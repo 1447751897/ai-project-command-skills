@@ -1,4 +1,4 @@
 interface:
-  display_name: "Continue"
+  display_name: "zno-continue"
   short_description: "Resume project from current status docs"
-  default_prompt: "Use $continue with /zno-continue to resume development from docs/development/10-current-status.md."
+  default_prompt: "Use $zno-continue with /zno-continue to resume development from docs/development/10-current-status.md."

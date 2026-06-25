@@ -49,7 +49,7 @@ Command behavior:
 - `/zno-plan`: when the user has no clear next step or asks what to add/improve, read existing docs, recommend feature/optimization directions with value, complexity, priority, dependencies, and risks, then wait for the user to choose. Do not implement directly.
 - `/zno-status`: inspect the current workspace, recent changes, docs, tests, and known pending work; update `docs/development/10-current-status.md` with a concise handoff-ready snapshot. Do not implement new work unless the user explicitly asks.
 - `/zno-continue`: read `AI_DEVELOPMENT_RULES.md`, `docs/00_START_HERE.md`, `docs/development/10-current-status.md`, `docs/development/03-feature-changelog.md`, `docs/product/06-roadmap.md`, and `docs/handoff/05-handoff-guide.md`; summarize current state and continue only after identifying the next safe task.
-- `/zno-upgrade`: if the user asks to update local skill `scripts/update_installed_skills.py` to download the latest GitHub package and update `~/.claude/skills`; otherwise copy only missing project template docs, preserve existing content, update `docs/maintenance/12-upgrade-history.md`, and then update `docs/development/10-current-status.md`.
+- `/zno-upgrade`: if the user asks to update local skills, run `scripts/update_installed_skills.py` to download the latest GitHub package and update the selected tool target (`~/.agents/skills` for Codex or `~/.claude/skills` for Claude Code); otherwise copy only missing project template docs, preserve existing content, update `docs/maintenance/12-upgrade-history.md`, and then update `docs/development/10-current-status.md`.
 - `/zno-review`: perform a self-review of recent changes or a specified scope/branch. Audit across 5 dimensions: security, performance, error handling, SOLID/DRY, and project conventions. Output findings as blocking items, suggestions, and reminders. Update `docs/development/03-feature-changelog.md` with review status.
 - `/zno-evaluate`: before committing to a new project, validate whether it is worth doing. Use Socratic questioning to challenge the idea across pain points, target users, existing solutions, ROI, risks, and timeline. Output a one-page evaluation conclusion (do / don't do / defer) with reasoning. This command should be used before `/zno-init`.
 - `/zno-retro`: after completing a project phase or milestone, conduct a retrospective. Compare original plan vs actual outcome, identify the top 3 lessons learned, extract reusable rules, and write findings to `docs/development/16-retrospective.md`. If any lesson is generalizable, append it to `AI_DEVELOPMENT_RULES.md` so future projects automatically benefit.
@@ -262,18 +262,21 @@ Behavior:
 - Skips files that already exist.
 - Use `--overwrite` only if the user explicitly asks to replace existing docs.
 
-Use the local skills updater when the user asks to update this skill package, update local commands, pull the latest GitHub package, or refresh `~/.claude/skills`:
+Use the local skills updater when the user asks to update this skill package, update local commands, pull the latest GitHub package, or refresh local skills:
 
 ```powershell
 python <installed-skills-dir>/zno-upgrade/scripts/update_installed_skills.py
+python <installed-skills-dir>/zno-upgrade/scripts/update_installed_skills.py --tool codex
+python <installed-skills-dir>/zno-upgrade/scripts/update_installed_skills.py --tool claude
+python <installed-skills-dir>/zno-upgrade/scripts/update_installed_skills.py --tool codex --target-root "$env:USERPROFILE\.agents\skills"
 ```
 
 Behavior:
 
 - Downloads `https://github.com/1447751897/ai-project-command-skills` as a zip archive.
 - Validates that all expected skill folders are present.
-- Backs up existing installed skills under `~/.claude/skills/.backup/`.
-- Replaces the installed skill folders and tells the user to restart Claude Code.
+- Backs up existing installed skills under the selected target's `.backup/` directory.
+- Replaces the installed skill folders, normalizes `agents/openai.yaml` display metadata to `zno-*`, and tells the user to restart the selected tool.
 
 Use the project docs upgrade script when a project was initialized by an older skill version and the user asks to add missing project docs or template rules:
 
@@ -371,7 +374,7 @@ When handling `/zno-upgrade`:
 2. If the user asks to update local skills, commands, this skill package, or the latest GitHub version, run `scripts/update_installed_skills.py`. Use `--dry-run` first when the user asks to preview only.
 3. If the user asks to upgrade an initialized project, run `scripts/upgrade_project_docs.py <project-root>` or manually apply the same behavior.
 4. For project docs upgrades, never overwrite existing project docs; read the list of new files, summarize what was added, propose/apply additive merges for new rules, and update `docs/development/10-current-status.md`.
-5. For local skill package updates, summarize the downloaded repository/branch, target install path, backup path if created, installed commands, and tell the user to restart Claude Code.
+5. For local skill package updates, summarize the downloaded repository/branch, selected tool, target install path, backup path if created, installed commands, and tell the user to restart Codex Desktop or Claude Code as appropriate.
 
 When handling `/zno-goal`:
 
@@ -462,7 +465,7 @@ Command behavior:
 - `/zno-plan`: when the user has no clear next step or asks what to add/improve, read existing docs, recommend feature/optimization directions with value, complexity, priority, dependencies, and risks, then wait for the user to choose. Do not implement directly.
 - `/zno-status`: inspect the current workspace, recent changes, docs, tests, and known pending work; update `docs/development/10-current-status.md` with a concise handoff-ready snapshot. Do not implement new work unless the user explicitly asks.
 - `/zno-continue`: read `AI_DEVELOPMENT_RULES.md`, `docs/00_START_HERE.md`, `docs/development/10-current-status.md`, `docs/development/03-feature-changelog.md`, `docs/product/06-roadmap.md`, and `docs/handoff/05-handoff-guide.md`; summarize current state and continue only after identifying the next safe task.
-- `/zno-upgrade`: if the user asks to update local skill `scripts/update_installed_skills.py` to download the latest GitHub package and update `~/.claude/skills`; otherwise copy only missing project template docs, preserve existing content, update `docs/maintenance/12-upgrade-history.md`, and then update `docs/development/10-current-status.md`.
+- `/zno-upgrade`: if the user asks to update local skills, run `scripts/update_installed_skills.py` to download the latest GitHub package and update the selected tool target (`~/.agents/skills` for Codex or `~/.claude/skills` for Claude Code); otherwise copy only missing project template docs, preserve existing content, update `docs/maintenance/12-upgrade-history.md`, and then update `docs/development/10-current-status.md`.
 - `/zno-review`: perform a self-review of recent changes or a specified scope/branch. Audit across 5 dimensions: security, performance, error handling, SOLID/DRY, and project conventions. Output findings as blocking items, suggestions, and reminders. Update `docs/development/03-feature-changelog.md` with review status.
 - `/zno-evaluate`: before committing to a new project, validate whether it is worth doing. Use Socratic questioning to challenge the idea across pain points, target users, existing solutions, ROI, risks, and timeline. Output a one-page evaluation conclusion (do / don't do / defer) with reasoning. This command should be used before `/zno-init`.
 - `/zno-retro`: after completing a project phase or milestone, conduct a retrospective. Compare original plan vs actual outcome, identify the top 3 lessons learned, extract reusable rules, and write findings to `docs/development/16-retrospective.md`. If any lesson is generalizable, append it to `AI_DEVELOPMENT_RULES.md` so future projects automatically benefit.
@@ -675,18 +678,21 @@ Behavior:
 - Skips files that already exist.
 - Use `--overwrite` only if the user explicitly asks to replace existing docs.
 
-Use the local skills updater when the user asks to update this skill package, update local commands, pull the latest GitHub package, or refresh `~/.claude/skills`:
+Use the local skills updater when the user asks to update this skill package, update local commands, pull the latest GitHub package, or refresh local skills:
 
 ```powershell
 python <installed-skills-dir>/zno-upgrade/scripts/update_installed_skills.py
+python <installed-skills-dir>/zno-upgrade/scripts/update_installed_skills.py --tool codex
+python <installed-skills-dir>/zno-upgrade/scripts/update_installed_skills.py --tool claude
+python <installed-skills-dir>/zno-upgrade/scripts/update_installed_skills.py --tool codex --target-root "$env:USERPROFILE\.agents\skills"
 ```
 
 Behavior:
 
 - Downloads `https://github.com/1447751897/ai-project-command-skills` as a zip archive.
 - Validates that all expected skill folders are present.
-- Backs up existing installed skills under `~/.claude/skills/.backup/`.
-- Replaces the installed skill folders and tells the user to restart Claude Code.
+- Backs up existing installed skills under the selected target's `.backup/` directory.
+- Replaces the installed skill folders, normalizes `agents/openai.yaml` display metadata to `zno-*`, and tells the user to restart the selected tool.
 
 Use the project docs upgrade script when a project was initialized by an older skill version and the user asks to add missing project docs or template rules:
 
@@ -784,7 +790,7 @@ When handling `/zno-upgrade`:
 2. If the user asks to update local skills, commands, this skill package, or the latest GitHub version, run `scripts/update_installed_skills.py`. Use `--dry-run` first when the user asks to preview only.
 3. If the user asks to upgrade an initialized project, run `scripts/upgrade_project_docs.py <project-root>` or manually apply the same behavior.
 4. For project docs upgrades, never overwrite existing project docs; read the list of new files, summarize what was added, propose/apply additive merges for new rules, and update `docs/development/10-current-status.md`.
-5. For local skill package updates, summarize the downloaded repository/branch, target install path, backup path if created, installed commands, and tell the user to restart Claude Code.
+5. For local skill package updates, summarize the downloaded repository/branch, selected tool, target install path, backup path if created, installed commands, and tell the user to restart Codex Desktop or Claude Code as appropriate.
 
 When handling `/zno-goal`:
 

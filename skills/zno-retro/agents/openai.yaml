@@ -1,4 +1,4 @@
 interface:
-  display_name: "Retro"
+  display_name: "zno-retro"
   short_description: "Conduct a project retrospective"
-  default_prompt: "Use $retro with /zno-retro to reflect on a completed phase, extract lessons learned, and update rules."
+  default_prompt: "Use $zno-retro with /zno-retro to reflect on a completed phase, extract lessons learned, and update rules."

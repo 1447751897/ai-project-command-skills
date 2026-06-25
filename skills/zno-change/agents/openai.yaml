@@ -1,4 +1,4 @@
 interface:
-  display_name: "Change"
+  display_name: "zno-change"
   short_description: "Assess and document requirement changes"
-  default_prompt: "Use $change with /zno-change to assess and implement a controlled requirement change."
+  default_prompt: "Use $zno-change with /zno-change to assess and implement a controlled requirement change."

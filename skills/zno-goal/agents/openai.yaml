@@ -1,4 +1,4 @@
 interface:
-  display_name: "Goal"
+  display_name: "zno-goal"
   short_description: "Auto-progress a full project objective"
-  default_prompt: "Use $goal with /zno-goal or /zno-goal --super to automatically progress a project objective."
+  default_prompt: "Use $zno-goal with /zno-goal or /zno-goal --super to automatically progress a project objective."

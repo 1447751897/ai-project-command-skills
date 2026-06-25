@@ -78,6 +78,9 @@ CODEX_SKILL_NAMES=(
   zno-continue
   zno-upgrade
   zno-project-kickoff-docs
+  zno-evaluate
+  zno-retro
+  zno-review
 )
 
 CLAUDE_SKILL_NAMES=(
@@ -96,6 +99,9 @@ CLAUDE_SKILL_NAMES=(
   zno-continue
   zno-upgrade
   zno-project-kickoff-docs
+  zno-evaluate
+  zno-retro
+  zno-review
 )
 
 command_exists() {
@@ -159,10 +165,10 @@ with urllib.request.urlopen(request, timeout=60) as response:
 with zipfile.ZipFile(zip_path) as archive:
     archive.extractall(extract_root)
 for candidate in extract_root.iterdir():
-    if candidate.is_dir() and ((candidate / "skills").is_dir() or (candidate / "claude-skills").is_dir()):
+    if candidate.is_dir() and (candidate / "skills").is_dir():
         print(candidate)
         raise SystemExit(0)
-raise SystemExit("Downloaded package does not contain skills or claude-skills.")
+raise SystemExit("Downloaded package does not contain skills.")
 PY
 }
 

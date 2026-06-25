@@ -1,4 +1,4 @@
 interface:
-  display_name: "Init"
+  display_name: "zno-init"
   short_description: "Clarify requirements and initialize docs"
-  default_prompt: "Use $init with /zno-init to clarify a new project and initialize its docs before development."
+  default_prompt: "Use $zno-init with /zno-init to clarify a new project and initialize its docs before development."

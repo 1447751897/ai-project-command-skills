@@ -5,7 +5,7 @@ param(
     [ValidateSet("local", "github")]
     [string]$Source = "local",
 
-    [string]$Repository = "1447751897/zno-project-command-skills",
+    [string]$Repository = "1447751897/ai-project-command-skills",
     [string]$Branch = "master",
     [string]$CodexTargetRoot = (Join-Path $env:USERPROFILE ".agents\skills"),
     [string]$ClaudeTargetRoot = (Join-Path $env:USERPROFILE ".claude\skills"),
@@ -15,21 +15,24 @@ param(
 $ErrorActionPreference = "Stop"
 
 $CodexSkillNames = @(
-    "init",
-    "goal",
-    "super",
-    "feature",
-    "change",
-    "fix",
-    "tech",
-    "deploy",
-    "handoff",
-    "roadmap",
-    "plan",
-    "status",
-    "continue",
-    "upgrade",
-    "project-kickoff-docs"
+    "zno-init",
+    "zno-goal",
+    "zno-super",
+    "zno-feature",
+    "zno-change",
+    "zno-fix",
+    "zno-tech",
+    "zno-deploy",
+    "zno-handoff",
+    "zno-roadmap",
+    "zno-plan",
+    "zno-status",
+    "zno-continue",
+    "zno-upgrade",
+    "zno-project-kickoff-docs",
+    "zno-evaluate",
+    "zno-retro",
+    "zno-review"
 )
 
 $ClaudeSkillNames = @(
@@ -47,7 +50,10 @@ $ClaudeSkillNames = @(
     "zno-status",
     "zno-continue",
     "zno-upgrade",
-    "zno-project-kickoff-docs"
+    "zno-project-kickoff-docs",
+    "zno-evaluate",
+    "zno-retro",
+    "zno-review"
 )
 
 function Test-CommandExists {
@@ -87,12 +93,11 @@ function Get-PackageRoot {
     Expand-Archive -LiteralPath $ZipPath -DestinationPath $ExtractRoot -Force
 
     $Candidate = Get-ChildItem -Path $ExtractRoot -Directory | Where-Object {
-        (Test-Path (Join-Path $_.FullName "skills")) -or
-        (Test-Path (Join-Path $_.FullName "claude-skills"))
+        (Test-Path (Join-Path $_.FullName "skills"))
     } | Select-Object -First 1
 
     if (-not $Candidate) {
-        throw "Downloaded package does not contain skills or claude-skills."
+        throw "Downloaded package does not contain skills."
     }
 
     return $Candidate.FullName
@@ -148,7 +153,7 @@ function Install-SkillSet {
         $SkillNames = $CodexSkillNames
         $RestartText = "Restart Codex desktop so the command menu can rescan skills."
     } else {
-        $SourceRoot = Join-Path $PackageRoot "claude-skills"
+        $SourceRoot = Join-Path $PackageRoot "skills"
         $TargetRoot = $ClaudeTargetRoot
         $SkillNames = $ClaudeSkillNames
         $RestartText = "Restart Claude Code so it can rescan skills."

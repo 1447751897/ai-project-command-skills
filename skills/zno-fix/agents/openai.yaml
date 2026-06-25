@@ -1,4 +1,4 @@
 interface:
-  display_name: "Fix"
+  display_name: "zno-fix"
   short_description: "Fix bugs with verification and changelog"
-  default_prompt: "Use $fix with /zno-fix to diagnose, repair, verify, and record a bug fix."
+  default_prompt: "Use $zno-fix with /zno-fix to diagnose, repair, verify, and record a bug fix."
