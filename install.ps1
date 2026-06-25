@@ -28,7 +28,10 @@ $SkillNames = @(
     "zno-status",
     "zno-continue",
     "zno-upgrade",
-    "zno-project-kickoff-docs"
+    "zno-project-kickoff-docs",
+    "zno-evaluate",
+    "zno-retro",
+    "zno-review"
 )
 
 foreach ($Name in $SkillNames) {
@@ -49,4 +52,4 @@ foreach ($Name in $SkillNames) {
 }
 
 Write-Host ""
-Write-Host "Done. Restart your AI coding tool, then try /zno-init, /zno-goal, /zno-goal --super, /zno-feature, /zno-fix, /zno-tech, /zno-deploy, /zno-handoff, /zno-roadmap, /zno-plan, /zno-status, /zno-continue, or /zno-upgrade. /zno-super is also available as a compatibility alias."
+Write-Host "Done. Restart your AI coding tool, then try /zno-init, /zno-goal, /zno-evaluate, /zno-review, /zno-retro, /zno-feature, /zno-fix, /zno-tech, /zno-deploy, /zno-handoff, /zno-roadmap, /zno-plan, /zno-status, /zno-continue, or /zno-upgrade."
