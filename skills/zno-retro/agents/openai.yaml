@@ -1,4 +1,4 @@
 interface:
-  display_name: "Init"
-  short_description: "Clarify requirements and initialize docs"
-  default_prompt: "Use $init with /zno-init to clarify a new project and initialize its docs before development."
+  display_name: "Retro"
+  short_description: "Conduct a project retrospective"
+  default_prompt: "Use $retro with /zno-retro to reflect on a completed phase, extract lessons learned, and update rules."

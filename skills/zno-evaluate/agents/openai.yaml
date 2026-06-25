@@ -1,4 +1,4 @@
 interface:
-  display_name: "Init"
-  short_description: "Clarify requirements and initialize docs"
-  default_prompt: "Use $init with /zno-init to clarify a new project and initialize its docs before development."
+  display_name: "Evaluate"
+  short_description: "Validate whether a project idea is worth doing"
+  default_prompt: "Use $evaluate with /zno-evaluate to challenge a project idea before committing to building it."
